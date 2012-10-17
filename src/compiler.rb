@@ -28,9 +28,13 @@ EOS
         def main
         {
             int myVar = 1
+            int mySecondVar = 5
             bool testBool = true
-            myVar = 5
+            myVar = mySecondVar
+            return myVar
         }
+
+        def single int faz = 10
 EOS
 
         @parser = MPP.new

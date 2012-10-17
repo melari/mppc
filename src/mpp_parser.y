@@ -45,7 +45,7 @@ rule
         | variable_declare
         | variable_set
         | if_statement
-        | expression
+        | return_statement
         ;
         
     variable_declare
@@ -67,6 +67,10 @@ rule
         
     if_statement
         : IF '(' expression ')' statement
+        ;
+
+    return_statement
+        : RETURN expression { result = ReturnStatementEval.new(val[1]) }
         ;
         
     term
@@ -127,10 +131,10 @@ rule
         ;
     
     constant
-        : DECIMAL { result = TermEval.new(:int, val[0].to_i) }
-        | HEX     { result = TermEval.new(:int, val[0].hex) }
-        | TRUE    { result = TermEval.new(:bool, true) }
-        | FALSE   { result = TermEval.new(:bool, false) }
+        : DECIMAL { result = LiteralEval.new(:int, val[0].to_i) }
+        | HEX     { result = LiteralEval.new(:int, val[0].hex) }
+        | TRUE    { result = LiteralEval.new(:bool, true) }
+        | FALSE   { result = LiteralEval.new(:bool, false) }
         ;
     
     ident
@@ -151,6 +155,7 @@ end
     require 'simple_operation_eval.rb'
     require 'variable_eval.rb'
     require 'function_eval.rb'
+    require 'return_statement_eval.rb'
 
 ---- inner
   #methods can be defined here...

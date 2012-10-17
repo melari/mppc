@@ -34,20 +34,21 @@ rule
                 end                         { [:END, text] }
                 true                        { [:TRUE, text] }
                 false                       { [:FALSE, text] }
+                return                      { [:RETURN, text] }
                 
 # Types
                 int                         { [:INT, text] }
                 bool                        { [:BOOL, text] }
                 
 # Operators
-                \=\=                          { [:EQUAL, text] }
-                \!\=                          { [:NOT_EQUAL, text] }
-                \<                           { [:LT, text] }
-                \>                           { [:GT, text] }
-                \<\=                          { [:LTE, text] }
-                \>\=                          { [:GTE, text] }
-                \&\&                          { [:AND, text] }
-                \|\|                          { [:OR, text] }
+                \=\=                        { [:EQUAL, text] }
+                \!\=                        { [:NOT_EQUAL, text] }
+                \<                          { [:LT, text] }
+                \>                          { [:GT, text] }
+                \<\=                        { [:LTE, text] }
+                \>\=                        { [:GTE, text] }
+                \&\&                        { [:AND, text] }
+                \|\|                        { [:OR, text] }
                 
 # Whitespace
                 {WHITESPACE}

@@ -1,27 +1,5 @@
 require 'evaluator.rb'
-
-class Variable
-  @@def_values = { :int => 0, :bool => false }
-  @@variables = {}
-
-  attr_accessor :type, :name
-
-  def initialize(type, name)
-    @type = type
-    @name = name
-    @@variables[name] = self
-  end
-
-  def self.get(name)
-    @@variables[name]
-  end
-
-  def self.generate_region
-    @@variables.each do |name, variable|
-      MPPCompiler.out ":#{variable.name} DAT 0"
-    end
-  end
-end
+require 'term_eval.rb'
 
 class SetVariableEval < Evaluator
   def initialize(variable, value)
@@ -30,13 +8,13 @@ class SetVariableEval < Evaluator
   end
 
   def eval
-    var = @variable.eval # gives Variable
-    val = @value.eval    # gives Value
-    unless var.type == val.type
+    var = @variable.eval # gives Variable < Term
+    val = @value.eval    # gives Term
+    unless var.same_type? val
       puts "ERROR: Expecting #{var.type} but found #{val.type}"
       exit
     end
-    MPPCompiler.out "SET #{var.name}, #{val.value}"
+    MPPCompiler.out "SET #{var.value}, #{val.value}"
   end
 end
 

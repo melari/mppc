@@ -25,5 +25,7 @@ class FunctionEval < Evaluator
   def eval
     MPPCompiler.out ":#{@name}"
     @statement.eval
+    MPPCompiler.out "SET A, 0"
+    MPPCompiler.out "SET PC, POP"
   end
 end
