@@ -2,7 +2,7 @@ PaC MP+ Compiler
 ===============
 
 Usage:
-  $ ruby bin/mppc.rb <input> [options]
+  $ mppc <input> [options]
 
 
 
