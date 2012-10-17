@@ -3,7 +3,7 @@ def main
   int myVar = 10
   bool myBoolean = true
   int myVarTwo = 11
-  myVarTwo = myVar
+  myVarTwo = myVar + 10 + myVarTwo
 
   return myBoolean
 }

@@ -56,6 +56,17 @@ class Variable < Term
   end
 end
 
+class Register < Term
+  def initialize(type, name)
+    super(type)
+    @name = name
+  end
+
+  def value
+    @name
+  end
+end
+
 class LiteralEval < Evaluator
 
   def initialize(type, value)
