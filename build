@@ -15,9 +15,10 @@ echo "Build done."
 
 if [ "$1" == "run" ]; then
   cd bin
-  rm out.txt
-  ./mppc mppc.rb -o out.txt
-  cat out.txt
+  rm ../mpp_example.asm
+  ./mppc ../mpp_example.mpp -o ../mpp_example.asm
+  echo "Compilation Complete. Showing contents of mpp_example.asm:"
+  cat ../mpp_example.asm
 else
   echo "Execute with 'build run' to automatically run after building."
 fi

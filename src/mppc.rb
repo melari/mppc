@@ -27,6 +27,12 @@ EOS
     else
       output = @@options["--output"][0]
     end
+    
+    unless File.exists? @@params["input"]
+      puts "Cannot find input file '#{@@params["input"]}'"
+      exit
+    end
+
     MPPCompiler.run(@@params["input"], output)
   end
 end
