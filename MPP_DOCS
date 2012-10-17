@@ -1,0 +1,49 @@
+Placeholder MP+ Documentation
+=============================
+
+==Include Files
+  require "<filename>"
+
+
+==Function Declaration
+  def <name>(<arguments>) <statement>
+
+  Note that here statement can be just one operation, or a code block. For example:
+
+  def setX(foo) x = foo
+
+  def setX(foo) {
+    x = foo
+    bar += 1
+  }
+
+  def setX(foo) do
+    x = foo
+    bar += 1
+  }
+
+
+==Code Blocks
+  do <statements> end
+  { <statements> }
+
+  In order to group a set of statements together, a code block must be used. There are two ways to defined the start/end of these blocks and can be used interchangeably.
+
+
+==Variable Declaration
+  <type> <name> [= <expression>]
+
+  Valid types for variables include (To be expanded on):
+    int  : A 32 bit signed integer.
+    uint : A 32 bit unsigned integer.
+    bool : Standard boolean (true/false)
+
+==Control Structures
+  if (<expression>) <statement>
+    Perform statement if expression evaluates to true or non-zero.
+
+  while(<expression>) <statement>
+    Continue to perform statement while expression evaluates to true or non-zero.
+
+  for(<statement1>; <expression>; <statement2>) <statement3>
+    Perform statement1, then continue to perform statement3 while expression evaluates to true or non-zero. Statement2 is performed at the end of each iteration.

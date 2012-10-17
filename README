@@ -1,0 +1,34 @@
+PaC MP+ Compiler
+===============
+
+Usage:
+  $ ruby bin/mppc.rb <input> [options]
+
+
+
+** Please note that the PaC MP+ Compiler is still a work in progress, so not all of the language constructs have been implemented yet. Thus the compiler is not really useable at this point, and will not officially be until version 1.0 is released. **
+
+
+Dependencies
+------------
+
+The PaC MP+ Compiler requires that both the Rex and Racc rubygems be installed. To do so use the below command:
+
+$ gem install rex && gem install racc
+
+
+Build Instructions
+------------------
+
+A build script is included which can automatically build the entire compiler. The binaries will be places in bin/
+If you wish to manually build the compiler, the following steps must be followed:
+  * Build the lexer:
+    $ rex src/mpp_lexer.rex -o bin/mpp_lexer.rb
+  * Build the paser:
+    $ racc src/mpp_parser.y -o bin/mpp_parser.rb
+
+    
+Authors
+-------
+
+Caleb Simpson (the.foner@gmail.com)

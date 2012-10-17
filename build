@@ -1,0 +1,23 @@
+echo "Building Lexer..."
+rex src/mpp_lexer.rex -o bin/mpp_lexer.rb
+
+echo "Building Parser..."
+racc src/mpp_parser.y -o bin/mpp_parser.rb
+
+echo "Copying ruby files to bin/"
+cp src/*.rb bin/
+
+echo "Creating executable"
+sudo chmod +x bin/mppc.rb
+mv bin/mppc.rb bin/mppc
+
+echo "Build done."
+
+if [ "$1" == "run" ]; then
+  cd bin
+  rm out.txt
+  ./mppc mppc.rb -o out.txt
+  cat out.txt
+else
+  echo "Execute with 'build run' to automatically run after building."
+fi
