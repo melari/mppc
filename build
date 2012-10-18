@@ -1,3 +1,5 @@
+mkdir bin
+
 echo "Building Lexer..."
 rex src/mpp_lexer.rex -o bin/mpp_lexer.rb
 
