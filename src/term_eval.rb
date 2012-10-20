@@ -60,7 +60,7 @@ class Variable < Term
   end
 
   def value
-    @name
+    "[#{@name}]"
   end
 
   def self.get(name)
@@ -69,7 +69,7 @@ class Variable < Term
 
   def self.generate_region
     @@variables.each do |name, variable|
-      MPPCompiler.out ":#{variable.value} DAT #{Type.get_default(variable.type)}"
+      MPPCompiler.out ":#{name} DAT #{Type.get_default(variable.type)}"
     end
   end
 end
