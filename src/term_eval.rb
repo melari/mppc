@@ -1,5 +1,24 @@
 require 'evaluator.rb'
 
+class Type
+  @@types = { :int =>  { :signed => true,
+                         :default => 0 },
+              :uint => { :signed => false,
+                         :default => 0 },
+              :bool => { :signed => false,
+                         :default => 0 }
+            }
+
+
+  def self.is_signed?(type)
+    @@types[type][:signed]
+  end
+
+  def self.get_default(type)
+    @@types[type][:default]
+  end
+end
+
 class Term
   attr_accessor :type
 
@@ -32,7 +51,6 @@ class Literal < Term
 end
 
 class Variable < Term
-  @@def_values = { :int => 0, :bool => false }
   @@variables = {}
 
   def initialize(type, name)
@@ -51,7 +69,7 @@ class Variable < Term
 
   def self.generate_region
     @@variables.each do |name, variable|
-      MPPCompiler.out ":#{variable.value} DAT 0"
+      MPPCompiler.out ":#{variable.value} DAT #{Type.get_default(variable.type)}"
     end
   end
 end

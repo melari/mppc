@@ -9,23 +9,34 @@ class SimpleOperationEval < Evaluator
   end
     
   def eval
+    term1 = @exp1.eval
+    term2 = @exp2.eval
+
+    unless [:int, :uint].include? term1.type
+      puts "Cannot apply #{@operation} operation to type #{term1.type}"
+      exit
+    end
+
+    unless term1.same_type? term2
+      puts "**ERROR: Expecting #{term1.type} but found #{term2.type}**"
+      exit
+    end
+
     case @operation
     when :add
-      term1 = @exp1.eval
-      term2 = @exp2.eval
-      MPPCompiler.out "SET A, #{term1.value}"
-      MPPCompiler.out "ADD A, #{term2.value}"
-      return Register.new(term1.type, 'A')
+      op = "ADD"
     when :sub
-      @op1.eval - @op2.eval
+      op = "SUB"
     when :mul
-      @op1.eval * @op2.eval
+      op = "MLI"
     when :div
-      @op1.eval / @op2.eval
+      op = "DVI"
     when :mod
-      @op1.eval % @op2.eval
-    when :equals
-      @op1.eval == @op2.eval
+      op = "MDI"
     end
+
+    MPPCompiler.out "SET A, #{term1.value}"
+    MPPCompiler.out "#{op} A, #{term2.value}"
+    return Register.new(term1.type, 'A')
   end
 end
