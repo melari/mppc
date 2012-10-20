@@ -5,7 +5,7 @@ class SingleOperationEval < Evaluator
         @op = op
         @operation = operation
     end
-    
+
     def eval
         case @operation
         when :unary

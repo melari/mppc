@@ -82,7 +82,7 @@ class TerminalRunner
   def self.name(name)
     @@name = name
   end
-  
+
   def self.option(name, arg_num, usage, help)
     @@avail_options << TerminalOption.new(name, arg_num-1, help, usage)
   end
@@ -114,7 +114,7 @@ class TerminalRunner
     @@avail_params << TerminalParam.new(name, help)
   end
 
-  private 
+  private
 
   def self.get_next_arg(args)
     arg = args.shift

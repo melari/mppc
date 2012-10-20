@@ -7,7 +7,7 @@ class SimpleOperationEval < Evaluator
     @exp2 = exp2
     @operation = operation
   end
-    
+
   def eval
     term1 = @exp1.eval
     term2 = @exp2.eval
