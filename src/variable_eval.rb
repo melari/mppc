@@ -16,6 +16,10 @@ class SetVariableEval < Evaluator
     end
     MPPCompiler.out "SET #{var.value}, #{val.value}"
   end
+
+  def memory
+    @variable.memory
+  end
 end
 
 class GetVariableEval < Evaluator
@@ -40,6 +44,11 @@ class DefineVariableEval < Evaluator
   end
 
   def eval
+    @variable.reserve_memory
     @variable
+  end
+
+  def memory
+    1
   end
 end

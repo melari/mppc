@@ -11,7 +11,6 @@ class MPPCompiler
 	self.out ":crash SET PC, crash"
         eval_tree = @parser.scan_file(input)
         eval_tree.eval
-        Variable.generate_region
         @@out.close
     end
 

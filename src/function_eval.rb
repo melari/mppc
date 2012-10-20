@@ -1,4 +1,5 @@
 require_relative 'evaluator.rb'
+require_relative 'term_eval.rb'
 
 class FunctionListEval < Evaluator
   def initialize(function)
@@ -23,9 +24,14 @@ class FunctionEval < Evaluator
   end
 
   def eval
+    Variable.new_scope
     MPPCompiler.out ":#{@name}"
+    MPPCompiler.out "SET X, SP"
+    MPPCompiler.out "ADD SP, #{@statement.memory}"
     @statement.eval
     MPPCompiler.out "SET A, 0"
+    MPPCompiler.out "SET SP, X"
     MPPCompiler.out "SET PC, POP"
+    Variable.end_scope
   end
 end

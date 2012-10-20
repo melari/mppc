@@ -1,9 +1,13 @@
 def main
 {
-  int myVar = 10
-  bool myBoolean = true
-  int myVarTwo = 11
-  myVarTwo = myVar / myVarTwo
+  int var = 100
+  int var2 = 10
+  int result = var/var2/10
 
-  return myBoolean
+  return result+8
+}
+
+def functionTwo
+{
+  int seperateScope = 10
 }

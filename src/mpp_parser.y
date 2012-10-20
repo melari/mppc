@@ -24,6 +24,12 @@ rule
 
     function
         : DEF ident statement { result = FunctionEval.new(val[1], val[2]) }
+        | DEF ident '(' arguments ')' statement { result = FunctionEval.new(val[1], val[5]) }
+        ;
+
+    arguments
+        : IDENT
+        | arguments ',' IDENT
         ;
 
     code_block
@@ -32,7 +38,7 @@ rule
         ;
 
     statement_list
-        : statement { result = FunctionListEval.new(val[0]) }
+        : statement { result = StatementListEval.new(val[0]) }
         | statement_list statement
           {
             val[0].add_member val[1]
@@ -156,6 +162,7 @@ end
     require_relative 'variable_eval.rb'
     require_relative 'function_eval.rb'
     require_relative 'return_statement_eval.rb'
+    require_relative 'statement_list_eval.rb'
 
 ---- inner
   #methods can be defined here...

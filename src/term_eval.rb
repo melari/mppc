@@ -53,24 +53,37 @@ end
 class Variable < Term
   @@variables = {}
 
+  @@scope=[]
+
   def initialize(type, name)
     super(type)
     @name = name
     @@variables[name] = self
   end
 
+  def reserve_memory
+    @mem_location = @@scope.pop
+    @@scope.push @mem_location+1
+  end
+
   def value
-    "[#{@name}]"
+    if @mem_location.nil?
+      puts "ERROR: Variable.value referenced before reserving memory."
+      exit
+    end
+    "[SP+#{@mem_location}]"
+  end
+
+  def self.new_scope
+    @@scope.push 1
+  end
+
+  def self.end_scope
+    @@scope.pop
   end
 
   def self.get(name)
     @@variables[name]
-  end
-
-  def self.generate_region
-    @@variables.each do |name, variable|
-      MPPCompiler.out ":#{name} DAT #{Type.get_default(variable.type)}"
-    end
   end
 end
 
