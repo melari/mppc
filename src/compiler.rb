@@ -7,7 +7,8 @@ class MPPCompiler
         @parser = MPP.new
         @@out = File.open(output, "w")
 
-        self.out "SET PC, main"
+        self.out "JSR main"
+	self.out ":crash SET PC, crash"
         eval_tree = @parser.scan_file(input)
         eval_tree.eval
         Variable.generate_region
