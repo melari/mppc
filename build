@@ -21,6 +21,8 @@ if [ "$1" == "run" ]; then
   ./mppc ../mpp_example.mpp -o ../mpp_example.asm
   echo "Compilation Complete. Showing contents of mpp_example.asm:"
   cat ../mpp_example.asm
+elif [ "$1" == "fix" ]; then
+  wstrip src -r -e "rb|y|rex"
 else
   echo "Execute with 'build run' to automatically run after building."
 fi
