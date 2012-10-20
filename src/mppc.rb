@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-require 'terminal_runner.rb'
-require 'compiler.rb'
+require_relative 'terminal_runner.rb'
+require_relative 'compiler.rb'
 
 class MPPC < TerminalRunner
 

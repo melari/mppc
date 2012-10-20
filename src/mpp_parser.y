@@ -149,13 +149,13 @@ rule
 end
 
 ---- header
-    require 'mpp_lexer.rb'
-    require 'term_eval.rb'
-    require 'single_operation_eval.rb'
-    require 'simple_operation_eval.rb'
-    require 'variable_eval.rb'
-    require 'function_eval.rb'
-    require 'return_statement_eval.rb'
+    require_relative 'mpp_lexer.rb'
+    require_relative 'term_eval.rb'
+    require_relative 'single_operation_eval.rb'
+    require_relative 'simple_operation_eval.rb'
+    require_relative 'variable_eval.rb'
+    require_relative 'function_eval.rb'
+    require_relative 'return_statement_eval.rb'
 
 ---- inner
   #methods can be defined here...

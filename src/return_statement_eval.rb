@@ -1,4 +1,4 @@
-require 'return_statement_eval.rb'
+require_relative 'return_statement_eval.rb'
 
 class ReturnStatementEval < Evaluator
   def initialize(expression)

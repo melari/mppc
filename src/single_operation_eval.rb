@@ -1,4 +1,4 @@
-require 'evaluator.rb'
+require_relative 'evaluator.rb'
 
 class SingleOperationEval < Evaluator
     def initialize(op, operation)

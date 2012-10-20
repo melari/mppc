@@ -1,5 +1,5 @@
-require 'evaluator.rb'
-require 'term_eval.rb'
+require_relative 'evaluator.rb'
+require_relative 'term_eval.rb'
 
 class SimpleOperationEval < Evaluator
   def initialize(exp1, exp2, operation)

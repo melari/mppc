@@ -1,6 +1,6 @@
-require 'mpp_lexer.rb'
-require 'mpp_parser.rb'
-require 'variable_eval.rb'
+require_relative 'mpp_lexer.rb'
+require_relative 'mpp_parser.rb'
+require_relative 'variable_eval.rb'
 
 class MPPCompiler
     def self.run(input, output)

@@ -1,4 +1,4 @@
-require 'evaluator.rb'
+require_relative 'evaluator.rb'
 
 class Type
   @@types = { :int =>  { :signed => true,
