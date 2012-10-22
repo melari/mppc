@@ -16,16 +16,18 @@ The PaC MP+ Compiler requires that both the Rex and Racc rubygems be installed. 
 
 $ gem install rex && gem install racc
 
+The MP+ Compiler requires ruby >= 1.9. However, if building the lexer, ruby 1.8.7 will also be needed (see build instructions).
+
 
 Build Instructions
 ------------------
 
-A build script is included which can automatically build the entire compiler. The binaries will be places in bin/
-If you wish to manually build the compiler, the following steps must be followed:
-  * Build the lexer:
+A build script is included which is meant to build the entire compiler. The binaries will be placed in bin/. Unfortunately, the rex gem is outdated and requires ruby 1.8.7 and thus must be build seperately.
+  To build the lexer:
+    $ /bin/bash --login
+    $ rvm use 1.8.7
     $ rex src/mpp_lexer.rex -o bin/mpp_lexer.rb
-  * Build the paser:
-    $ racc src/mpp_parser.y -o bin/mpp_parser.rb
+
 
     
 Authors

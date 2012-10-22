@@ -1,7 +1,12 @@
 mkdir bin
 
-echo "Building Lexer..."
-rex src/mpp_lexer.rex -o bin/mpp_lexer.rb
+#NOTE: Lexer cannot be build with ruby > 1.8.7!!
+#Manual build instructions:
+#   $ /bin/bash --login
+#   $ rvm use 1.8.7
+#   $ rex src/mpp_lexer.rex -o bin/mpp_lexer.rb
+#echo "Building Lexer..."
+#rex src/mpp_lexer.rex -o bin/mpp_lexer.rb
 
 echo "Building Parser..."
 racc src/mpp_parser.y -o bin/mpp_parser.rb
