@@ -9,7 +9,11 @@ rule
         ;
 
     require_list
-        : REQUIRE STRING { puts "ERROR: requires not yet supported."; exit }
+        : REQUIRE STRING
+           { 
+             puts "ERROR: requires not yet supported."
+             exit
+           }
         | require_list REQUIRE STRING
         ;
 
