@@ -39,6 +39,8 @@ rule
     code_block
         : DO statement_list END { result = val[1] }
         | '{' statement_list '}' { result = val[1] }
+        | DO END { result = Evaluator.new }
+        | '{' '}' { result = Evaluator.new }
         ;
 
     statement_list
