@@ -9,19 +9,6 @@ class SimpleOperationEval < Evaluator
   end
 
   def eval
-    term1 = @exp1.eval
-    term2 = @exp2.eval
-
-    unless [:int, :uint].include? term1.type
-      puts "Cannot apply #{@operation} operation to type #{term1.type}"
-      exit
-    end
-
-    unless term1.same_type? term2
-      puts "**ERROR: Expecting #{term1.type} but found #{term2.type}**"
-      exit
-    end
-
     case @operation
     when :add
       op = "ADD"
@@ -34,6 +21,31 @@ class SimpleOperationEval < Evaluator
     when :mod
       op = "MDI"
     end
+
+    term1 = @exp1.eval
+
+    if term1.location == :register
+      MPPCompiler.out "SET PUSH, #{term1.value}"
+      term1.value = "POP"
+    end
+
+    term2 = @exp2.eval
+
+    if term2.location == :register
+      MPPCompiler.out "SET B, A"
+      term2.value = "B"
+    end
+
+    unless [:int, :uint].include? term1.type
+      puts "Cannot apply #{@operation} operation to type #{term1.type}"
+      exit
+    end
+
+    unless term1.same_type? term2
+      puts "**ERROR: Expecting #{term1.type} but found #{term2.type}**"
+      exit
+    end
+
 
     MPPCompiler.out "SET A, #{term1.value}"
     MPPCompiler.out "#{op} A, #{term2.value}"

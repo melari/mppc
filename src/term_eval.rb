@@ -26,11 +26,19 @@ class Term
     @type = type
   end
 
+  def location
+    :none
+  end
+
   def value
   end
 
   def same_type?(term)
     term.type == type
+  end
+
+  def signed?
+    Type.is_signed? @type
   end
 end
 
@@ -38,6 +46,10 @@ class Literal < Term
   def initialize(type, value)
     super(type)
     @value = value
+  end
+
+  def location
+    :literal
   end
 
   def value
@@ -61,6 +73,10 @@ class Variable < Term
     @@variables[name] = self
   end
 
+  def location
+    :memory
+  end
+  
   def reserve_memory
     @mem_location = @@scope.pop
     @@scope.push @mem_location+1
@@ -93,9 +109,18 @@ class Register < Term
     @name = name
   end
 
+  def location
+    :register
+  end
+  
   def value
     @name
   end
+
+  def value=(x)
+    @name = x
+  end
+
 end
 
 class LiteralEval < Evaluator
