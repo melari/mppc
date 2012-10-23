@@ -29,12 +29,9 @@ class SimpleOperationEval < Evaluator
       term1.value = "POP"
     end
 
+    Register.use 'B'
     term2 = @exp2.eval
-
-    if term2.location == :register
-      MPPCompiler.out "SET B, A"
-      term2.value = "B"
-    end
+    Register.end_use
 
     unless [:int, :uint].include? term1.type
       puts "Cannot apply #{@operation} operation to type #{term1.type}"
@@ -47,8 +44,9 @@ class SimpleOperationEval < Evaluator
     end
 
 
-    MPPCompiler.out "SET A, #{term1.value}"
-    MPPCompiler.out "#{op} A, #{term2.value}"
-    return Register.new(term1.type, 'A')
+    reg = Register.use_get(term1.type)
+    MPPCompiler.out "SET #{reg.value}, #{term1.value}"
+    MPPCompiler.out "#{op} #{reg.value}, #{term2.value}"
+    return reg
   end
 end

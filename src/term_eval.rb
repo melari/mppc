@@ -121,6 +121,20 @@ class Register < Term
     @name = x
   end
 
+  @@use_stack = []
+
+  def self.use(name)
+    @@use_stack.push name
+  end
+
+  def self.use_get(type)
+    return Register.new(type, 'A') if @@use_stack.empty?
+    Register.new(type, @@use_stack[-1])
+  end
+
+  def self.end_use
+    @@use_stack.pop
+  end
 end
 
 class LiteralEval < Evaluator
