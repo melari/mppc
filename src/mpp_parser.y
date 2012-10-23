@@ -117,10 +117,10 @@ rule
         ;
 
     relation
-        : add EQUAL add { result = SimpleOperationEval.new(val[0], val[2], :equals) }
-        | add NOT_EQUAL add
-        | add LT add
-        | add GT add
+        : add EQUAL add { result = ComparisonOperationEval.new(val[0], val[2], :equal) }
+        | add NOT_EQUAL add { result = ComparisonOperationEval.new(val[0], val[2], :not_equal) }
+        | add LT add { result = ComparisonOperationEval.new(val[0], val[2], :lt) }
+        | add GT add { result = ComparisonOperationEval.new(val[0], val[2], :gt) }
         | add LTE add
         | add GTE add
         | add
@@ -163,12 +163,12 @@ end
 ---- header
     require_relative 'mpp_lexer.rb'
     require_relative 'term_eval.rb'
-    require_relative 'single_operation_eval.rb'
     require_relative 'simple_operation_eval.rb'
     require_relative 'variable_eval.rb'
     require_relative 'function_eval.rb'
     require_relative 'return_statement_eval.rb'
     require_relative 'statement_list_eval.rb'
+    require_relative 'comparison_operation_eval.rb'
 
 ---- inner
   #methods can be defined here...
