@@ -38,6 +38,8 @@ class DefineVariableEval < Evaluator
       type = :int
     when "bool"
       type = :bool
+    else
+      raise "Unknown type #{t}"
     end
     @variable = Variable.new(type, name)
   end

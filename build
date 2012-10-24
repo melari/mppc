@@ -135,6 +135,7 @@ class Build < TerminalRunner
 
   option "--help", 0, "", "Show this help document."
 
+  option "fix", 0, "", "Runs wstrip on the src directory before building."
   option "clean", 0, "", "Delete all bin files before building."
   option "test", 0, "", "Run the tests after building."
   option "run", 0, "", "Run the application after building (and testing if applicable)."
@@ -181,7 +182,9 @@ EOS
     puts "[DONE] Building."
 
     if @@options.include? "test"
-      system("ruby", "bin/test/system.rb")
+      Dir.entries("bin/test").select do |test|
+        system("ruby", "bin/test/#{test}")
+      end
       puts "[DONE] Testing."
     end
 

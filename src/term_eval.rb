@@ -84,8 +84,7 @@ class Variable < Term
 
   def value
     if @mem_location.nil?
-      puts "ERROR: Variable.value referenced before reserving memory."
-      exit
+      throw "Variable.value referenced before reserving memory."
     end
     return "[SP]" if @mem_location == 0
     "[SP+#{@mem_location}]"
