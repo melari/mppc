@@ -87,11 +87,12 @@ class Variable < Term
       puts "ERROR: Variable.value referenced before reserving memory."
       exit
     end
+    return "[SP]" if @mem_location == 0
     "[SP+#{@mem_location}]"
   end
 
   def self.new_scope
-    @@scope.push 1
+    @@scope.push 0
   end
 
   def self.end_scope

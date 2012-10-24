@@ -11,8 +11,7 @@ class SetVariableEval < Evaluator
     var = @variable.eval # gives Variable < Term
     val = @value.eval    # gives Term
     unless var.same_type? val
-      puts "ERROR: Expecting #{var.type} but found #{val.type}"
-      exit
+      raise "ERROR: Expecting #{var.type} but found #{val.type}"
     end
     MPPCompiler.out "SET #{var.value}, #{val.value}"
   end
