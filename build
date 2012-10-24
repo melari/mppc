@@ -171,6 +171,7 @@ EOS
 
     puts "Copying ruby files to bin/..."
     `cp src/*.rb bin/`
+    `rm -r bin/test`
     `cp -r src/test bin/test`
 
     puts "Creating Executable..."

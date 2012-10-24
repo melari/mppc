@@ -4,14 +4,14 @@ require_relative 'variable_eval.rb'
 
 class MPPCompiler
     def self.run(input, output)
-        @parser = MPP.new
-        @@out = File.open(output, "w")
+      @parser = MPP.new
+      @@out = File.open(output, "w")
 
-        self.out "JSR main"
-	self.out ":crash SET PC, crash"
-        eval_tree = @parser.scan_file(input)
-        eval_tree.eval
-        @@out.close
+      self.out "JSR main"
+	    self.out ":crash SET PC, crash"
+      eval_tree = @parser.scan_file(input)
+      eval_tree.eval
+      @@out.close
     end
 
     def self.tokenize(input)
