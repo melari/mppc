@@ -76,7 +76,7 @@ class Variable < Term
   def location
     :memory
   end
-  
+
   def reserve_memory
     @mem_location = @@scope.pop
     @@scope.push @mem_location+1
@@ -112,7 +112,7 @@ class Register < Term
   def location
     :register
   end
-  
+
   def value
     @name
   end

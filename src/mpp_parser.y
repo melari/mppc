@@ -10,7 +10,7 @@ rule
 
     require_list
         : REQUIRE STRING
-           { 
+           {
              puts "ERROR: requires not yet supported."
              exit
            }
