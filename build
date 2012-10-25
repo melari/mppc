@@ -183,7 +183,7 @@ EOS
 
     if @@options.include? "test"
       Dir.entries("bin/test").select do |test|
-        system("ruby", "bin/test/#{test}")
+        system("ruby", "bin/test/#{test}") unless test == "." || test == ".."
       end
       puts "[DONE] Testing."
     end
