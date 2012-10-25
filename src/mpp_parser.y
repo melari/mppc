@@ -78,7 +78,7 @@ rule
         ;
 
     if_statement
-        : IF '(' expression ')' statement { result = IfStatementEval.new(val[2], val[4]) }
+        : IF  expression  statement { result = IfStatementEval.new(val[1], val[2]) }
         ;
 
     return_statement

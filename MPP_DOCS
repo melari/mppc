@@ -39,10 +39,10 @@ Placeholder MP+ Documentation
     bool : Standard boolean (true/false)
 
 ==Control Structures
-  if (<expression>) <statement>
+  if <expression> <statement>
     Perform statement if expression evaluates to true or non-zero.
 
-  while(<expression>) <statement>
+  while <expression> <statement>
     Continue to perform statement while expression evaluates to true or non-zero.
 
   for(<statement1>; <expression>; <statement2>) <statement3>
