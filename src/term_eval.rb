@@ -17,12 +17,17 @@ class Type
   def self.get_default(type)
     @@types[type][:default]
   end
+
+  def self.exists?(type)
+    @@types.has_key? type
+  end
 end
 
 class Term
   attr_accessor :type
 
   def initialize(type)
+    throw TypeError, "Unknown type #{type}" unless Type.exists? type
     @type = type
   end
 
@@ -55,6 +60,8 @@ class Literal < Term
   def value
     case @type
     when :int
+      return @value
+    when :uint
       return @value
     when :bool
       return @value ? 1 : 0

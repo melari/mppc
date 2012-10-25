@@ -2,26 +2,23 @@ require_relative 'evaluator.rb'
 require_relative 'term_eval.rb'
 
 class SimpleOperationEval < Evaluator
+  @@command_map = { :add => { true => "ADD", false => "ADD" },
+                    :sub => { true => "SUB", false => "SUB" },
+                    :mul => { true => "MLI", false => "MUL" },
+                    :div => { true => "DVI", false => "DIV" },
+                    :mod => { true => "MDI", false => "MOD" }
+                  }
+
   def initialize(exp1, exp2, operation)
     @exp1 = exp1
     @exp2 = exp2
+    unless @@command_map.has_key? operation
+      raise TypeError, "Unknown operation #{operation}"
+    end
     @operation = operation
   end
 
   def eval
-    case @operation
-    when :add
-      op = "ADD"
-    when :sub
-      op = "SUB"
-    when :mul
-      op = "MLI"
-    when :div
-      op = "DVI"
-    when :mod
-      op = "MDI"
-    end
-
     term1 = @exp1.eval
 
     if term1.location == :register
@@ -33,15 +30,10 @@ class SimpleOperationEval < Evaluator
     term2 = @exp2.eval
     Register.end_use
 
-    unless [:int, :uint].include? term1.type
-      puts "Cannot apply #{@operation} operation to type #{term1.type}"
-      exit
-    end
-
     unless term1.same_type? term2
-      puts "**ERROR: Expecting #{term1.type} but found #{term2.type}**"
-      exit
+      raise TypeError, "Expecting #{term1.type} but found #{term2.type}**"
     end
+    op = @@command_map[@operation][Type.is_signed? term1.type]
 
 
     reg = Register.use_get(term1.type)

@@ -195,7 +195,6 @@ EOS
       File.readlines("mpp_example.asm").each { |line| puts line }
     end
   end
-
 end
 
 if __FILE__ == $0

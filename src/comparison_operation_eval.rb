@@ -8,6 +8,10 @@ class ComparisonOperationEval < Evaluator
     "coe#{@@token}"
   end
 
+  def self.reset #resets to original state (used for unit tests).
+    @@token = 0
+  end
+
   @@command_map = { :equal => { true => "IFE", false => "IFE" },
                     :not_equal => { true => "IFN", false => "IFN" },
                     :lt => { true => "IFU", false => "IFL" },

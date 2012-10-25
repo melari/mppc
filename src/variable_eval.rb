@@ -11,7 +11,7 @@ class SetVariableEval < Evaluator
     var = @variable.eval # gives Variable < Term
     val = @value.eval    # gives Term
     unless var.same_type? val
-      raise "ERROR: Expecting #{var.type} but found #{val.type}"
+      raise TypeError, "Expecting #{var.type} but found #{val.type}"
     end
     MPPCompiler.out "SET #{var.value}, #{val.value}"
   end
@@ -36,10 +36,12 @@ class DefineVariableEval < Evaluator
     case t
     when "int"
       type = :int
+    when "uint"
+      type = :uint
     when "bool"
       type = :bool
     else
-      raise "Unknown type #{t}"
+      raise TypeError, "Unknown type #{t}"
     end
     @variable = Variable.new(type, name)
   end

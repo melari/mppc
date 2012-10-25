@@ -5,6 +5,7 @@ require_relative '../variable_eval.rb'
 class VariableTests < Test::Unit::TestCase
   @bool_var
   @int_var
+  @uint_var
   @int_lit
   @bool_lit
 
@@ -12,6 +13,7 @@ class VariableTests < Test::Unit::TestCase
     Variable.new_scope
     @bool_var = DefineVariableEval.new("bool", "test")
     @int_var = DefineVariableEval.new("int", "test2")
+    @uint_var = DefineVariableEval.new("uint", "test3")
     @bool_lit = LiteralEval.new(:bool, true)
     @int_lit = LiteralEval.new(:int, 10)
   end
@@ -23,7 +25,7 @@ class VariableTests < Test::Unit::TestCase
 #Ensure that mismatched types throw an exception
   def test_set_unmatched_type
     set = SetVariableEval.new(@bool_var, @int_lit)
-    assert_raise RuntimeError do
+    assert_raise TypeError do
       set.eval
     end
   end
@@ -58,7 +60,7 @@ class VariableTests < Test::Unit::TestCase
 
 #Ensure that an exception is thrown when defining a variable with a unacceptable type.
   def test_unknown_type
-    assert_raise RuntimeError do
+    assert_raise TypeError do
       DefineVariableEval.new("FAKE", "name")
     end
   end
