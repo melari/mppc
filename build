@@ -183,7 +183,9 @@ EOS
 
     if @@options.include? "test"
       Dir.entries("bin/test").select do |test|
-        system("ruby", "bin/test/#{test}") unless test == "." || test == ".."
+        next if test[0] == "."
+        puts "==========Starting Test Suite: #{test}=========="
+        system("ruby", "bin/test/#{test}")
       end
       puts "[DONE] Testing."
     end
