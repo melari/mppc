@@ -9,7 +9,7 @@ class FunctionTests < Test::Unit::TestCase
     assert_equal MPPCompiler.last, <<EOS
 :test
 SET X, SP
-ADD SP, 0
+SUB SP, 0
 SET A, 0
 SET SP, X
 SET PC, POP
@@ -22,7 +22,7 @@ EOS
     assert_equal MPPCompiler.last, <<EOS
 :testFunc
 SET X, SP
-ADD SP, 1
+SUB SP, 1
 SET A, 0
 SET SP, X
 SET PC, POP

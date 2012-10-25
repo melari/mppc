@@ -78,7 +78,7 @@ rule
         ;
 
     if_statement
-        : IF '(' expression ')' statement
+        : IF '(' expression ')' statement { result = IfStatementEval.new(val[2], val[4]) }
         ;
 
     return_statement
@@ -169,6 +169,7 @@ end
     require_relative 'return_statement_eval.rb'
     require_relative 'statement_list_eval.rb'
     require_relative 'comparison_operation_eval.rb'
+    require_relative 'if_statement_eval.rb'
 
 ---- inner
   #methods can be defined here...
