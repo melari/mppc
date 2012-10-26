@@ -176,7 +176,7 @@ EOS
     `cp -r src/test bin/test`
 
     puts "Creating Executable..."
-    `sudo chmod +x bin/mppc.rb`
+    `chmod +x bin/mppc.rb`
     `mv bin/mppc.rb bin/mppc`
 
     puts "[DONE] Building."
@@ -192,7 +192,7 @@ EOS
 
     if @@options.include? "run"
       `rm mpp_example.asm`
-      system("bin/mppc", "mpp_example.mpp", "-o", "mpp_example.asm")
+      system("ruby", "bin/mppc", "mpp_example.mpp", "-o", "mpp_example.asm")
       puts "[DONE] Running."
       File.readlines("mpp_example.asm").each { |line| puts line }
     end
