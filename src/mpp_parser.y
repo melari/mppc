@@ -27,13 +27,17 @@ rule
         ;
 
     function
-        : DEF ident statement { result = FunctionEval.new(val[1], val[2]) }
-        | DEF ident '(' arguments ')' statement { result = FunctionEval.new(val[1], val[5]) }
+        : DEF ident statement { result = FunctionEval.new(val[1], Evaluator.new, val[2]) }
+        | DEF ident '(' arguments ')' statement { result = FunctionEval.new(val[1], val[3], val[5]) }
         ;
 
     arguments
-        : IDENT
-        | arguments ',' IDENT
+        : variable_declare { result = ArgumentListEval.new(val[0]) }
+        | arguments ',' variable_declare
+          {
+            val[0].add_member val[2]
+            result = val[0]
+          }
         ;
 
     code_block
@@ -170,6 +174,7 @@ end
     require_relative 'statement_list_eval.rb'
     require_relative 'comparison_operation_eval.rb'
     require_relative 'if_statement_eval.rb'
+    require_relative 'arguments_eval.rb'
 
 ---- inner
   #methods can be defined here...

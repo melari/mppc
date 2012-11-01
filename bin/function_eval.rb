@@ -18,8 +18,9 @@ class FunctionListEval < Evaluator
 end
 
 class FunctionEval < Evaluator
-  def initialize(name, statement)
+  def initialize(name, arguments, statement)
     @name = name
+    @arguments = arguments
     @statement = statement
   end
 
@@ -27,7 +28,8 @@ class FunctionEval < Evaluator
     Variable.new_scope
     MPPCompiler.out ":#{@name}"
     MPPCompiler.out "SET X, SP"
-    MPPCompiler.out "SUB SP, #{@statement.memory}"
+    MPPCompiler.out "SUB SP, #{@statement.memory + @arguments.memory}"
+    @arguments.eval
     @statement.eval
     MPPCompiler.out "SET A, 0"
     MPPCompiler.out "SET SP, X"
