@@ -27,8 +27,8 @@ rule
         ;
 
     function
-        : DEF ident statement { result = FunctionEval.new(val[1], Evaluator.new, val[2]) }
-        | DEF ident '(' arguments ')' statement { result = FunctionEval.new(val[1], val[3], val[5]) }
+        : type ident statement { result = FunctionEval.new(val[0], val[1], Evaluator.new, val[2]) }
+        | type ident '(' arguments ')' statement { result = FunctionEval.new(val[0], val[1], val[3], val[5]) }
         ;
 
     arguments
@@ -62,6 +62,7 @@ rule
         | variable_set
         | if_statement
         | return_statement
+        | function_call
         ;
 
     variable_declare
@@ -137,7 +138,7 @@ rule
         ;
 
     function_call
-        : ident '(' params ')'
+        : ident '(' params ')' { result = FunctionCallEval.new(val[0], val[2]) }
         ;
 
     params
@@ -159,7 +160,9 @@ rule
 
     type
         : INT
+        | UINT
         | BOOL
+        | DEF
         ;
 
 end

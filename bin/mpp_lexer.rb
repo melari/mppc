@@ -103,6 +103,9 @@ class MPP < Racc::Parser
         when (text = ss.scan(/int/))
            @rex_tokens.push action { [:INT, text] }
 
+        when (text = ss.scan(/uint/))
+           @rex_tokens.push action { [:UINT, text] }
+
         when (text = ss.scan(/bool/))
            @rex_tokens.push action { [:BOOL, text] }
 

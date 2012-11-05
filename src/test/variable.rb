@@ -61,7 +61,7 @@ class VariableTests < Test::Unit::TestCase
 #Ensure that an exception is thrown when defining a variable with a unacceptable type.
   def test_unknown_type
     assert_raise TypeError do
-      DefineVariableEval.new("FAKE", "name")
+      DefineVariableEval.new("FAKE", "name").eval
     end
   end
 

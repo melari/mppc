@@ -38,6 +38,7 @@ rule
 
 # Types
                 int                         { [:INT, text] }
+                uint                        { [:UINT, text] }
                 bool                        { [:BOOL, text] }
 
 # Operators

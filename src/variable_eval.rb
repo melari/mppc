@@ -32,23 +32,15 @@ class GetVariableEval < Evaluator
 end
 
 class DefineVariableEval < Evaluator
-  def initialize(t, name)
-    case t
-    when "int"
-      type = :int
-    when "uint"
-      type = :uint
-    when "bool"
-      type = :bool
-    else
-      raise TypeError, "Unknown type #{t}"
-    end
-    @variable = Variable.new(type, name)
+  def initialize(type, name)
+    @type = type
+    @name = name
   end
 
   def eval
-    @variable.reserve_memory
-    @variable
+    variable = Variable.new(Type.parse(@type), @name)
+    variable.reserve_memory
+    variable
   end
 
   def memory

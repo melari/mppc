@@ -6,6 +6,8 @@ class Type
               :uint => { :signed => false,
                          :default => 0 },
               :bool => { :signed => false,
+                         :default => 0 },
+              :none => { :signed => false,
                          :default => 0 }
             }
 
@@ -20,6 +22,21 @@ class Type
 
   def self.exists?(type)
     @@types.has_key? type
+  end
+  
+  def self.parse(type)
+  case type
+    when "int"
+      return :int
+    when "uint"
+      return :uint
+    when "bool"
+      return :bool
+    when "def"
+      return :none
+    else
+      raise TypeError, "Unknown type #{type}"
+    end
   end
 end
 
@@ -77,6 +94,9 @@ class Variable < Term
   def initialize(type, name)
     super(type)
     @name = name
+    if @@variables.include? name
+      throw "Variable #{name} is previously declared."
+    end
     @@variables[name] = self
   end
 
@@ -103,6 +123,7 @@ class Variable < Term
 
   def self.end_scope
     @@scope.pop
+    @@variables = {}
   end
 
   def self.get(name)
