@@ -83,4 +83,11 @@ class VariableTests < Test::Unit::TestCase
       var.value
     end
   end
+  
+  def test_variable_not_defined
+    get = GetVariableEval.new("fake")
+    assert_raise ArgumentError do
+      get.eval
+    end
+  end
 end

@@ -127,7 +127,8 @@ class Variable < Term
   end
 
   def self.get(name)
-    @@variables[name]
+    return @@variables[name] unless @@variables[name].nil?
+    throw "Unknown variable #{name}."
   end
 end
 
