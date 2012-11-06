@@ -106,7 +106,7 @@ class Variable < Term
 
   def reserve_memory
     @mem_location = @@scope.pop
-    @@scope.push @mem_location+1
+    @@scope.push @mem_location-1
   end
 
   def value
@@ -117,8 +117,8 @@ class Variable < Term
     "[SP+#{@mem_location}]"
   end
 
-  def self.new_scope
-    @@scope.push 0
+  def self.new_scope(scope_size)
+    @@scope.push scope_size-1
   end
 
   def self.end_scope

@@ -9,7 +9,7 @@ class IfStatementTests < Test::Unit::TestCase
     @lit_20 = LiteralEval.new(:int, 20)
     @define_var_state = DefineVariableEval.new("int", "test")
     @set_var_state = SetVariableEval.new(@define_var_state, @lit_20)
-    Variable.new_scope
+    Variable.new_scope 10 #size of scope does not matter for tests.
   end
 
   def teardown
@@ -32,7 +32,7 @@ class IfStatementTests < Test::Unit::TestCase
     assert_equal MPPCompiler.last, <<EOS
 IFE 10, 0
 SET PC, if1
-SET [SP], 20
+SET [SP+9], 20
 :if1
 EOS
   end

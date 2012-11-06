@@ -56,11 +56,13 @@ class FunctionEval < Evaluator
   end
 
   def eval
-    Variable.new_scope
+    memory_req = @statement.memory + @arguments.memory
+  
+    Variable.new_scope memory_req
     MPPCompiler.out ":#{@function.label}"
     MPPCompiler.out "SET PUSH, X"
     MPPCompiler.out "SET X, SP"
-    MPPCompiler.out "SUB SP, #{@statement.memory + @arguments.memory}"
+    MPPCompiler.out "SUB SP, #{memory_req}"
     @arguments.eval
     @statement.eval
     MPPCompiler.out "SET A, 0"

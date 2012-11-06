@@ -10,7 +10,7 @@ class VariableTests < Test::Unit::TestCase
   @bool_lit
 
   def setup
-    Variable.new_scope
+    Variable.new_scope 10 #Size of scope does not really matter for tests.
     @bool_var = DefineVariableEval.new("bool", "test")
     @int_var = DefineVariableEval.new("int", "test2")
     @uint_var = DefineVariableEval.new("uint", "test3")
@@ -34,7 +34,7 @@ class VariableTests < Test::Unit::TestCase
   def test_set_eval
     set = SetVariableEval.new(@int_var, @int_lit)
     set.eval
-    assert_equal "SET [SP], 10\n", MPPCompiler.last
+    assert_equal "SET [SP+9], 10\n", MPPCompiler.last
   end
 
 #Ensure memory address locations are assigned correctly.
@@ -43,19 +43,19 @@ class VariableTests < Test::Unit::TestCase
     @int_var.eval
     var1 = GetVariableEval.new("test").eval
     var2 = GetVariableEval.new("test2").eval
-    assert_equal "[SP]", var1.value
-    assert_equal "[SP+1]", var2.value
+    assert_equal "[SP+9]", var1.value
+    assert_equal "[SP+8]", var2.value
   end
 
 #Ensure that variable memory locations reset after creating a new scope.
   def test_variable_scope
     @bool_var.eval
-    Variable.new_scope
+    Variable.new_scope 5
     @int_var.eval
     var1 = GetVariableEval.new("test").eval
     var2 = GetVariableEval.new("test2").eval
-    assert_equal "[SP]", var1.value
-    assert_equal "[SP]", var2.value
+    assert_equal "[SP+9]", var1.value
+    assert_equal "[SP+4]", var2.value
   end
 
 #Ensure that an exception is thrown when defining a variable with a unacceptable type.
