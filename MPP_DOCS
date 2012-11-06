@@ -47,8 +47,3 @@ Placeholder MP+ Documentation
 
   for(<statement1>; <expression>; <statement2>) <statement3>
     Perform statement1, then continue to perform statement3 while expression evaluates to true or non-zero. Statement2 is performed at the end of each iteration.
-
-
-==Compilation Standards
-  A register is used for most operations and does not have to be preserved.
-  X register is reserved for holding the function return memory position for SP.

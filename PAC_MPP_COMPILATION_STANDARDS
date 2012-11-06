@@ -1,0 +1,30 @@
+PaC MPP COMPILATION STANDARDS
+=============================
+
+== Register Use:
+
+  * Register A is used for function return values and intermediate values. It does not have to be preserved.
+  * Register X is used to store the previous location of SP at the start of a function. This must be preserved.
+
+== Stack Structure and Function call-run-return flow:
+
+SP  LocalVar3
+    LocalVar2
+    LocalVar1
+    Argument2
+    Argument1
+X   PreviousX
+    Return PC
+    
+  * caller sets argument values at SP-3..SP-3-n
+  * JSR to function puts the Return PC onto the stack
+  * Push the current value of X to the stack
+  * Set the value of X to the current value of SP
+  * Subtract the required amount of local memory from SP
+  
+  * Function runs <<State of stack at this point shown above>>
+  
+  * Put the return value of the function onto A
+  * Set SP back to value of X
+  * Pop X from the stack to return it to its original value
+  * Pop PC from the stack to return to caller.
