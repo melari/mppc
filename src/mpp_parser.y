@@ -142,8 +142,8 @@ rule
         ;
 
     params
-        : params ',' expression
-        | expression
+        : params ',' expression { result = val[0] << val[2] }
+        | expression { result = [val[0]] }
         | /* none */
         ;
 

@@ -80,6 +80,13 @@ class FunctionCallEval < Evaluator
   end
   
   def eval
+    mem_location = 3
+    @arguments.each do |expression|
+      term = expression.eval
+      MPPCompiler.out "SET [SP-#{mem_location}], #{term.value}"
+      mem_location += 1
+    end
+  
     function = Function.get(@name)
     MPPCompiler.out "JSR #{function.label}"
     Register.new function.type, 'A'

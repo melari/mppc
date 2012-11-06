@@ -234,8 +234,8 @@ racc_reduce_table = [
   3, 53, :_reduce_none,
   1, 53, :_reduce_none,
   4, 52, :_reduce_56,
-  3, 61, :_reduce_none,
-  1, 61, :_reduce_none,
+  3, 61, :_reduce_57,
+  1, 61, :_reduce_58,
   0, 61, :_reduce_none,
   1, 55, :_reduce_60,
   1, 55, :_reduce_61,
@@ -669,9 +669,19 @@ module_eval(<<'.,.,', 'mpp_parser.y', 140)
   end
 .,.,
 
-# reduce 57 omitted
+module_eval(<<'.,.,', 'mpp_parser.y', 144)
+  def _reduce_57(val, _values, result)
+     result = val[0] << val[2] 
+    result
+  end
+.,.,
 
-# reduce 58 omitted
+module_eval(<<'.,.,', 'mpp_parser.y', 145)
+  def _reduce_58(val, _values, result)
+     result = [val[0]] 
+    result
+  end
+.,.,
 
 # reduce 59 omitted
 

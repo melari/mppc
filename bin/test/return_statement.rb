@@ -9,6 +9,7 @@ class ReturnStatementTests < Test::Unit::TestCase
     assert_equal MPPCompiler.last, <<EOS
 SET A, 10
 SET SP, X
+SET X, POP
 SET PC, POP
 EOS
   end
