@@ -32,7 +32,7 @@ class IfStatementTests < Test::Unit::TestCase
     assert_equal MPPCompiler.last, <<EOS
 IFE 10, 0
 SET PC, if1
-SET [SP+9], 20
+SET [Y+9], 20
 :if1
 EOS
   end

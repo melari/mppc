@@ -13,10 +13,13 @@ class FunctionTests < Test::Unit::TestCase
     assert_equal MPPCompiler.last, <<EOS
 :f1
 SET PUSH, X
+SET PUSH, Y
 SET X, SP
 SUB SP, 0
+SET Y, SP
 SET A, 0
 SET SP, X
+SET Y, POP
 SET X, POP
 SET PC, POP
 EOS
@@ -28,10 +31,13 @@ EOS
     assert_equal MPPCompiler.last, <<EOS
 :f1
 SET PUSH, X
+SET PUSH, Y
 SET X, SP
 SUB SP, 1
+SET Y, SP
 SET A, 0
 SET SP, X
+SET Y, POP
 SET X, POP
 SET PC, POP
 EOS
@@ -43,10 +49,13 @@ EOS
     assert_equal MPPCompiler.last, <<EOS
 :f1
 SET PUSH, X
+SET PUSH, Y
 SET X, SP
 SUB SP, 1
+SET Y, SP
 SET A, 0
 SET SP, X
+SET Y, POP
 SET X, POP
 SET PC, POP
 EOS
@@ -65,7 +74,9 @@ EOS
     FunctionEval.new("def", "testFunc", var, Evaluator.new)
     FunctionCallEval.new("testFunc", [LiteralEval.new(:int, 5)]).eval
     assert_equal MPPCompiler.last, <<EOS
-SET [SP-3], 5
+SUB SP, 5
+SET [SP+1], 5
+ADD SP, 5
 JSR f1
 EOS
   end

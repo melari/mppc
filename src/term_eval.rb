@@ -113,8 +113,8 @@ class Variable < Term
     if @mem_location.nil?
       throw "Variable.value referenced before reserving memory."
     end
-    return "[SP]" if @mem_location == 0
-    "[SP+#{@mem_location}]"
+    return "[Y]" if @mem_location == 0
+    "[Y+#{@mem_location}]"
   end
 
   def self.new_scope(scope_size)

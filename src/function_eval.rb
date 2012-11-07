@@ -61,12 +61,15 @@ class FunctionEval < Evaluator
     Variable.new_scope memory_req
     MPPCompiler.out ":#{@function.label}"
     MPPCompiler.out "SET PUSH, X"
+    MPPCompiler.out "SET PUSH, Y"
     MPPCompiler.out "SET X, SP"
     MPPCompiler.out "SUB SP, #{memory_req}"
+    MPPCompiler.out "SET Y, SP"
     @arguments.eval
     @statement.eval
     MPPCompiler.out "SET A, 0"
     MPPCompiler.out "SET SP, X"
+    MPPCompiler.out "SET Y, POP"
     MPPCompiler.out "SET X, POP"
     MPPCompiler.out "SET PC, POP"
     Variable.end_scope
@@ -80,15 +83,35 @@ class FunctionCallEval < Evaluator
   end
   
   def eval
-    mem_location = 3
-    @arguments.each do |expression|
-      term = expression.eval
-      MPPCompiler.out "SET [SP-#{mem_location}], #{term.value}"
-      mem_location += 1
+    function = Function.get(@name)
+    result_register = Register.use_get(function.type)
+  
+    unless result_register.value == 'A'
+      MPPCompiler.out "SET PUSH, A"
     end
   
-    function = Function.get(@name)
+    unless @arguments.empty?
+      mem_location = 1
+      @arguments.each do |expression|
+        term = expression.eval
+        if term.location == :memory
+          result_register.value = term.value
+          term = result_register
+        end
+        MPPCompiler.out "SUB SP, #{@arguments.count+4}"
+        MPPCompiler.out "SET [SP+#{mem_location}], #{term.value}"
+        MPPCompiler.out "ADD SP, #{@arguments.count+4}"
+        mem_location += 1
+      end
+    end
+  
     MPPCompiler.out "JSR #{function.label}"
-    Register.new function.type, 'A'
+    
+    unless result_register.value == 'A'
+      MPPCompiler.out "SET #{result_register.value}, A"
+      MPPCompiler.out "SET A, POP"
+    end
+    
+    result_register
   end
 end

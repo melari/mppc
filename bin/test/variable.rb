@@ -34,7 +34,7 @@ class VariableTests < Test::Unit::TestCase
   def test_set_eval
     set = SetVariableEval.new(@int_var, @int_lit)
     set.eval
-    assert_equal "SET [SP+9], 10\n", MPPCompiler.last
+    assert_equal "SET [Y+9], 10\n", MPPCompiler.last
   end
 
 #Ensure memory address locations are assigned correctly.
@@ -43,8 +43,8 @@ class VariableTests < Test::Unit::TestCase
     @int_var.eval
     var1 = GetVariableEval.new("test").eval
     var2 = GetVariableEval.new("test2").eval
-    assert_equal "[SP+9]", var1.value
-    assert_equal "[SP+8]", var2.value
+    assert_equal "[Y+9]", var1.value
+    assert_equal "[Y+8]", var2.value
   end
 
 #Ensure that variable memory locations reset after creating a new scope.
@@ -54,8 +54,8 @@ class VariableTests < Test::Unit::TestCase
     @int_var.eval
     var1 = GetVariableEval.new("test").eval
     var2 = GetVariableEval.new("test2").eval
-    assert_equal "[SP+9]", var1.value
-    assert_equal "[SP+4]", var2.value
+    assert_equal "[Y+9]", var1.value
+    assert_equal "[Y+4]", var2.value
   end
 
 #Ensure that an exception is thrown when defining a variable with a unacceptable type.
