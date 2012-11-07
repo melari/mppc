@@ -39,7 +39,7 @@ class Function
   def initialize(type, name)
     @type = type
     @name = name
-    @label = Function.next_token
+    @label = name == "main" ? "main" : Function.next_token
     @@functions[name] = self
   end
   
