@@ -148,10 +148,14 @@ rule
         ;
 
     constant
-        : DECIMAL { result = LiteralEval.new(:int, val[0].to_i) }
-        | HEX     { result = LiteralEval.new(:int, val[0].hex) }
+        : numeric_constant
         | TRUE    { result = LiteralEval.new(:bool, true) }
         | FALSE   { result = LiteralEval.new(:bool, false) }
+        ;
+        
+    numeric_constant
+        : DECIMAL { result = LiteralEval.new(:int, val[0].to_i) }
+        | HEX     { result = LiteralEval.new(:int, val[0].hex) }
         ;
 
     ident
@@ -159,6 +163,10 @@ rule
         ;
 
     type
+        : typedef
+        | typedef '[' numeric_constant ']'
+
+    typedef
         : INT
         | UINT
         | BOOL
