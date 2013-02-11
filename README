@@ -20,6 +20,9 @@ The MP+ Compiler requires ruby >= 1.9. However, if building the lexer, ruby 1.8.
 To run the testing suites, the test-unit gem must be installed:
 $ gem install test-unit
 
+The build script also supports removing all trailing whitespace using WStrip available from:
+git@github.com:melari/wstrip.git
+
 
 Build Instructions
 ------------------
