@@ -17,7 +17,7 @@ SP Y LocalVar3
 X    PreviousY
      PreviousX
      Return PC
-    
+
   * caller sets argument values at SP-3..SP-3-n
   * JSR to function puts the Return PC onto the stack
   * Push the current value of X to the stack
@@ -25,9 +25,9 @@ X    PreviousY
   * Set the value of X to the current value of SP
   * Subtract the required amount of local memory from SP
   * Set Y to SP (this allows for SP to change while keeping a reference to the top of the local vars.
-  
+
   * Function runs <<State of stack at this point shown above>>
-  
+
   * Put the return value of the function onto A
   * Set SP back to value of X
   * Pop Y from the stack to return it to its original value

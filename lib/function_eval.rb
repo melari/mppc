@@ -25,24 +25,24 @@ class Function
     @@token += 1
     "f#{@@token}"
   end
-  
+
   def self.reset
     @@token = 0
   end
-  
+
   def self.get(name)
     @@functions[name]
   end
-  
+
   attr_accessor :type
-  
+
   def initialize(type, name)
     @type = type
     @name = name
     @label = name == "main" ? "main" : Function.next_token
     @@functions[name] = self
   end
-  
+
   def label
     @label
   end
@@ -57,7 +57,7 @@ class FunctionEval < Evaluator
 
   def eval
     memory_req = @statement.memory + @arguments.memory
-  
+
     Variable.new_scope memory_req
     MPPCompiler.out ":#{@function.label}"
     MPPCompiler.out "SET PUSH, X"
@@ -81,15 +81,15 @@ class FunctionCallEval < Evaluator
     @name = name
     @arguments = arguments
   end
-  
+
   def eval
     function = Function.get(@name)
     result_register = Register.use_get(function.type)
-  
+
     unless result_register.value == 'A'
       MPPCompiler.out "SET PUSH, A"
     end
-  
+
     unless @arguments.empty?
       mem_location = 1
       @arguments.each do |expression|
@@ -104,14 +104,14 @@ class FunctionCallEval < Evaluator
         mem_location += 1
       end
     end
-  
+
     MPPCompiler.out "JSR #{function.label}"
-    
+
     unless result_register.value == 'A'
       MPPCompiler.out "SET #{result_register.value}, A"
       MPPCompiler.out "SET A, POP"
     end
-    
+
     result_register
   end
 end

@@ -34,7 +34,7 @@ A build script is included which is meant to build the entire compiler. The bina
     $ rex src/mpp_lexer.rex -o bin/mpp_lexer.rb
 
 
-    
+
 Authors
 -------
 

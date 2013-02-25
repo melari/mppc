@@ -135,8 +135,7 @@ class Build < TerminalRunner
 
   option "--help", 0, "", "Show this help document."
 
-  option "fix", 0, "", "Runs wstrip on the src directory before building."
-  option "clean", 0, "", "Delete all bin files before building."
+  option "fix", 0, "", "Runs wstrip on the lib directory before building."
   option "test", 0, "", "Run the tests after building."
   option "run", 0, "", "Run the application after building (and testing if applicable)."
   help <<EOS
@@ -144,7 +143,7 @@ class Build < TerminalRunner
     $ /bin/bash --login
     $ rvm use 1.8.7
     $ gem install rex  # (may not be needed if already installed)
-    $ rex src/mpp_lexer.rex -o bin/mpp_lexer.rb
+    $ rex lib/mpp_lexer.rex -o lib/mpp_lexer.rb
 EOS
 
   def self.run
@@ -155,44 +154,33 @@ EOS
 
     `mkdir -p bin`
 
-    if @@options.include? "clean"
-      `mv bin/mpp_lexer.rb .`
-      `rm -r bin/*`
-      `mv mpp_lexer.rb bin/`
-      puts "[DONE] bin cleaning."
-    end
-
     if @@options.include? "fix"
-      `wstrip src -r -e "rb|y|rex"`
+      `wstrip lib -r -e "rb|y|rex"`
       puts "[DONE] Fixing."
     end
 
     puts "Building Parser..."
-    `racc src/mpp_parser.y -o bin/mpp_parser.rb`
-
-    puts "Copying ruby files to bin/..."
-    `cp src/*.rb bin/`
-    `rm -r bin/test`
-    `cp -r src/test bin/test`
+    `racc lib/mpp_parser.y -o lib/mpp_parser.rb`
 
     puts "Creating Executable..."
-    `chmod +x bin/mppc.rb`
-    `mv bin/mppc.rb bin/mppc`
+    `rm lib/mppc`
+    `cp lib/mppc.rb lib/mppc`
+    `chmod +x lib/mppc.rb`
 
     puts "[DONE] Building."
 
     if @@options.include? "test"
-      Dir.entries("bin/test").select do |test|
+      Dir.entries("lib/test").select do |test|
         next if test[0] == "."
         puts "==========Starting Test Suite: #{test}=========="
-        system("ruby", "bin/test/#{test}")
+        system("ruby", "lib/test/#{test}")
       end
       puts "[DONE] Testing."
     end
 
     if @@options.include? "run"
       `rm mpp_example.asm`
-      system("ruby", "bin/mppc", "mpp_example.mpp", "-o", "mpp_example.asm")
+      system("ruby", "lib/mppc", "mpp_example.mpp", "-o", "mpp_example.asm")
       puts "[DONE] Running."
       File.readlines("mpp_example.asm").each { |line| puts line }
     end

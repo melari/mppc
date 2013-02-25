@@ -60,7 +60,7 @@ SET X, POP
 SET PC, POP
 EOS
   end
-  
+
   def test_function_call
     FunctionEval.new("def", "testFunc", Evaluator.new, Evaluator.new)
     FunctionCallEval.new("testFunc", []).eval
@@ -68,7 +68,7 @@ EOS
 JSR f1
 EOS
   end
-  
+
   def test_function_call_with_arguments
     var = DefineVariableEval.new("int", "test")
     FunctionEval.new("def", "testFunc", var, Evaluator.new)

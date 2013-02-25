@@ -23,7 +23,7 @@ class Type
   def self.exists?(type)
     @@types.has_key? type
   end
-  
+
   def self.parse(type)
   case type
     when "int"
