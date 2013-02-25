@@ -1,6 +1,6 @@
 require_relative 'mpp_lexer.rb'
 require_relative 'mpp_parser.rb'
-require_relative 'variable_eval.rb'
+require_relative 'variable.rb'
 
 class MPPCompiler
     @@out = nil
@@ -11,7 +11,7 @@ class MPPCompiler
       @@out = File.open(output, "w")
 
       self.out "JSR main"
-	    self.out ":crash SET PC, crash"
+      self.out ":crash SET PC, crash"
       eval_tree = @parser.scan_file(input)
       eval_tree.eval
       @@out.close

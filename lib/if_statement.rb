@@ -1,5 +1,5 @@
 require_relative 'evaluator.rb'
-require_relative 'term_eval.rb'
+require_relative 'term.rb'
 
 class IfStatementEval < Evaluator
   @@token = 0

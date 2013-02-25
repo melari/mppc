@@ -169,15 +169,15 @@ end
 
 ---- header
     require_relative 'mpp_lexer.rb'
-    require_relative 'term_eval.rb'
-    require_relative 'simple_operation_eval.rb'
-    require_relative 'variable_eval.rb'
-    require_relative 'function_eval.rb'
-    require_relative 'return_statement_eval.rb'
-    require_relative 'statement_list_eval.rb'
-    require_relative 'comparison_operation_eval.rb'
-    require_relative 'if_statement_eval.rb'
-    require_relative 'arguments_eval.rb'
+    require_relative 'term.rb'
+    require_relative 'simple_operation.rb'
+    require_relative 'variable.rb'
+    require_relative 'function.rb'
+    require_relative 'return_statement.rb'
+    require_relative 'statement_list.rb'
+    require_relative 'comparison_operation.rb'
+    require_relative 'if_statement.rb'
+    require_relative 'arguments.rb'
 
 ---- inner
   #methods can be defined here...

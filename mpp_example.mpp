@@ -2,13 +2,17 @@ def main
 {
   int var = 100
   int var2 = 10
-  int result = var/var2/10
+  int result = test_one(var2) + var
 
-  return result+8
+  return result/208
 }
 
-def functionTwo
+int test_one(int i)
 {
-  int seperateScope = 10
-  return seperateScope
+  return i + test_two(i-1)
+}
+
+int test_two(int i)
+{
+  return i * 10
 }

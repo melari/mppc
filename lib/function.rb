@@ -1,5 +1,5 @@
 require_relative 'evaluator.rb'
-require_relative 'term_eval.rb'
+require_relative 'term.rb'
 
 class FunctionListEval < Evaluator
   def initialize(function)
@@ -90,7 +90,7 @@ class FunctionCallEval < Evaluator
       MPPCompiler.out "SET PUSH, A"
     end
 
-    unless @arguments.empty?
+    unless @arguments.nil?
       mem_location = 1
       @arguments.each do |expression|
         term = expression.eval
