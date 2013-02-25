@@ -23,8 +23,6 @@ EOS
       exit
     end
 
-    `mkdir -p bin`
-
     if @@options.include? "fix"
       `wstrip lib -r -e "rb|y|rex"`
       puts "[DONE] Fixing."
