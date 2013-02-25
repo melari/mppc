@@ -3,7 +3,10 @@ GEM
   specs:
     racc (1.4.9)
     rex (1.0.2)
+    terrun (1.0.0)
     test-unit (2.5.4)
+    wstrip (1.0.0)
+      terrun
 
 PLATFORMS
   ruby
@@ -11,4 +14,6 @@ PLATFORMS
 DEPENDENCIES
   racc
   rex
+  terrun
   test-unit
+  wstrip

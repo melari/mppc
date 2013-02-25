@@ -12,20 +12,15 @@ Usage:
 Dependencies
 ------------
 
-The PaC MP+ Compiler requires that both the Rex and Racc rubygems be installed. To do so use the below command:
-$ gem install rex && gem install racc
+All dependencies are references in the Gemfile. These can be installed/update using budler:
+$ bundle install
 
 
 The MP+ Compiler requires ruby >= 1.9. However, if building the lexer, ruby 1.8.7 will also be needed (see build instructions).
 
-To run the testing suites, the test-unit gem must be installed:
-$ gem install test-unit
-
-Alternatively make use of bundler to automatically install rex, racc, and test-unit.
-$ bundle install
 
 The build script also supports removing all trailing whitespace using WStrip available from:
-git@github.com:melari/wstrip.git
+$ gem install wstrip
 
 
 Build Instructions
