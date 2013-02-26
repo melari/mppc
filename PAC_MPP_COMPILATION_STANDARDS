@@ -18,7 +18,7 @@ X    PreviousY
      PreviousX
      Return PC
 
-  * caller sets argument values at SP-3..SP-3-n
+  * caller sets argument values at SP-4..SP-4-n
   * JSR to function puts the Return PC onto the stack
   * Push the current value of X to the stack
   * Push the current value of Y to the stack
