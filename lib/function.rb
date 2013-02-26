@@ -1,5 +1,6 @@
 require_relative 'evaluator.rb'
 require_relative 'term.rb'
+require_relative 'return_statement.rb'
 
 class FunctionListEval < Evaluator
   def initialize(function)
@@ -67,11 +68,7 @@ class FunctionEval < Evaluator
     MPPCompiler.out "SET Y, SP"
     @arguments.eval
     @statement.eval
-    MPPCompiler.out "SET A, 0"
-    MPPCompiler.out "SET SP, X"
-    MPPCompiler.out "SET Y, POP"
-    MPPCompiler.out "SET X, POP"
-    MPPCompiler.out "SET PC, POP"
+    ReturnStatementEval.render(0)
     Variable.end_scope
   end
 end

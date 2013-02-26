@@ -4,7 +4,11 @@ class ReturnStatementEval < Evaluator
   end
 
   def eval
-    MPPCompiler.out "SET A, #{@expression.eval.value}"
+    ReturnStatementEval.render(@expression.eval.value)
+  end
+
+  def self.render(return_value)
+    MPPCompiler.out "SET A, #{return_value}"
     MPPCompiler.out "SET SP, X"
     MPPCompiler.out "SET Y, POP"
     MPPCompiler.out "SET X, POP"
