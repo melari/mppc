@@ -1,6 +1,6 @@
 require 'test/unit'
 require_relative '../compiler.rb'
-require_relative '../simple_operation_eval.rb'
+require_relative '../simple_operation.rb'
 
 class SimpleOperationTests < Test::Unit::TestCase
   def setup

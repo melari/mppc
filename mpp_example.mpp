@@ -4,7 +4,7 @@ def main
   int var2 = 10
   int result = test_one(var2) + var
 
-  return result/208
+  return result/200
 }
 
 int test_one(int i)

@@ -1,7 +1,7 @@
 require 'test/unit'
 require_relative '../compiler.rb'
-require_relative '../variable_eval.rb'
-require_relative '../term_eval.rb'
+require_relative '../variable.rb'
+require_relative '../term.rb'
 
 class IfStatementTests < Test::Unit::TestCase
   def setup

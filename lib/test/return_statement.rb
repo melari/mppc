@@ -1,6 +1,6 @@
 require 'test/unit'
 require_relative '../compiler.rb'
-require_relative '../return_statement_eval.rb'
+require_relative '../return_statement.rb'
 
 class ReturnStatementTests < Test::Unit::TestCase
   def test_eval_output

@@ -1,6 +1,6 @@
 require 'test/unit'
 require_relative '../compiler.rb'
-require_relative '../term_eval.rb'
+require_relative '../term.rb'
 
 class TermTests < Test::Unit::TestCase
 #Ensure that we get back the correct value, when creating a literal with the default value for a given type.

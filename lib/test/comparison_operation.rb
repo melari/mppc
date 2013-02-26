@@ -1,8 +1,8 @@
 require 'test/unit'
 require_relative '../compiler.rb'
-require_relative '../comparison_operation_eval.rb'
-require_relative '../simple_operation_eval.rb'
-require_relative '../term_eval.rb'
+require_relative '../comparison_operation.rb'
+require_relative '../simple_operation.rb'
+require_relative '../term.rb'
 
 class ComparisonOperationTests < Test::Unit::TestCase
   def setup

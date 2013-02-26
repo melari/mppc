@@ -1,6 +1,6 @@
 require 'test/unit'
 require_relative '../compiler.rb'
-require_relative '../variable_eval.rb'
+require_relative '../variable.rb'
 
 class VariableTests < Test::Unit::TestCase
   @bool_var

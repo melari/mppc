@@ -1,7 +1,7 @@
 require 'test/unit'
 require_relative '../compiler.rb'
-require_relative '../function_eval.rb'
-require_relative '../variable_eval.rb'
+require_relative '../function.rb'
+require_relative '../variable.rb'
 
 class FunctionTests < Test::Unit::TestCase
   def teardown
