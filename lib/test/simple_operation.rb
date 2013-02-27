@@ -8,6 +8,7 @@ class SimpleOperationTests < Test::Unit::TestCase
     @lit_20 = LiteralEval.new(:int, 20)
     @lit_30 = LiteralEval.new(:int, 30)
     @lit_true = LiteralEval.new(:bool, true)
+    @lit_false = LiteralEval.new(:bool, false)
     @lit_u10 = LiteralEval.new(:uint, 10)
     @lit_u20 = LiteralEval.new(:uint, 20)
   end
@@ -86,6 +87,22 @@ EOS
     assert_equal MPPCompiler.last, <<EOS
 SET A, 10
 MOD A, 20
+EOS
+  end
+
+  def test_and_eval
+    SimpleOperationEval.new(@lit_true, @lit_false, :and).eval
+    assert_equal MPPCompiler.last, <<EOS
+SET A, 1
+AND A, 0
+EOS
+  end
+
+  def test_bor_eval
+    SimpleOperationEval.new(@lit_true, @lit_false, :bor).eval
+    assert_equal MPPCompiler.last, <<EOS
+SET A, 1
+BOR A, 0
 EOS
   end
 

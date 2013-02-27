@@ -9,7 +9,7 @@ class UnaryNegationEval < Evaluator
   def eval
     term = @exp.eval
     reg = Register.use_get(term.type)
-    MPPCompiler.out "SET #{reg.value}, #{term1.value}"
+    MPPCompiler.out "SET #{reg.value}, #{term.value}"
     MPPCompiler.out "MLI #{reg.value}, -1"
     reg
   end
