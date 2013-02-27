@@ -9,7 +9,7 @@ macro
     WHITESPACE  \s+
     ML_COM_IN   \/\*
     ML_COM_OUT  \*\/
-    SL_COM      \/\/
+    SL_COM      \#
 
 rule
 
