@@ -98,13 +98,13 @@ rule
         ;
 
     negation
-        : '!' negation { result = SingleOperationEval.new(val[1], :negation) }
+        : '!' negation { result = BinaryNegationEval.new(val[1]) }
         | term
         ;
 
     unary
         : '+' unary { result = val[1] }
-        | '-' unary { result = SingleOperationEval.new(val[1], :unary) }
+        | '-' unary { result = UnaryNegationEval.new(val[1]) }
         | negation
         ;
 
@@ -132,8 +132,8 @@ rule
         ;
 
     expression
-        : expression AND relation
-        | expression OR relation
+        : expression AND relation { result = SimpleOperationEval.new(val[0], val[2], :and) }
+        | expression OR relation { result = SimpleOperationEval.new(val[0], val[2], :bor) }
         | relation
         ;
 
@@ -171,6 +171,7 @@ end
     require_relative 'mpp_lexer.rb'
     require_relative 'term.rb'
     require_relative 'simple_operation.rb'
+    require_relative 'single_operation.rb'
     require_relative 'variable.rb'
     require_relative 'function.rb'
     require_relative 'return_statement.rb'

@@ -6,7 +6,9 @@ class SimpleOperationEval < Evaluator
                     :sub => { true => "SUB", false => "SUB" },
                     :mul => { true => "MLI", false => "MUL" },
                     :div => { true => "DVI", false => "DIV" },
-                    :mod => { true => "MDI", false => "MOD" }
+                    :mod => { true => "MDI", false => "MOD" },
+                    :and => { true => "AND", false => "AND" },
+                    :bor => { true => "BOR", false => "BOR" }
                   }
 
   def initialize(exp1, exp2, operation)
@@ -39,6 +41,6 @@ class SimpleOperationEval < Evaluator
     reg = Register.use_get(term1.type)
     MPPCompiler.out "SET #{reg.value}, #{term1.value}"
     MPPCompiler.out "#{op} #{reg.value}, #{term2.value}"
-    return reg
+    reg
   end
 end

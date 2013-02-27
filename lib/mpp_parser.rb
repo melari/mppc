@@ -9,6 +9,7 @@ require 'racc/parser.rb'
     require_relative 'mpp_lexer.rb'
     require_relative 'term.rb'
     require_relative 'simple_operation.rb'
+    require_relative 'single_operation.rb'
     require_relative 'variable.rb'
     require_relative 'function.rb'
     require_relative 'return_statement.rb'
@@ -19,7 +20,7 @@ require 'racc/parser.rb'
 
 class MPP < Racc::Parser
 
-module_eval(<<'...end mpp_parser.y/module_eval...', 'mpp_parser.y', 183)
+module_eval(<<'...end mpp_parser.y/module_eval...', 'mpp_parser.y', 184)
   #methods can be defined here...
 ...end mpp_parser.y/module_eval...
 ##### State transition tables begin ###
@@ -230,8 +231,8 @@ racc_reduce_table = [
   3, 60, :_reduce_none,
   3, 60, :_reduce_none,
   1, 60, :_reduce_none,
-  3, 53, :_reduce_none,
-  3, 53, :_reduce_none,
+  3, 53, :_reduce_53,
+  3, 53, :_reduce_54,
   1, 53, :_reduce_none,
   4, 52, :_reduce_56,
   3, 61, :_reduce_57,
@@ -560,7 +561,7 @@ module_eval(<<'.,.,', 'mpp_parser.y', 94)
 
 module_eval(<<'.,.,', 'mpp_parser.y', 100)
   def _reduce_34(val, _values, result)
-     result = SingleOperationEval.new(val[1], :negation) 
+     result = BinaryNegationEval.new(val[1]) 
     result
   end
 .,.,
@@ -576,7 +577,7 @@ module_eval(<<'.,.,', 'mpp_parser.y', 105)
 
 module_eval(<<'.,.,', 'mpp_parser.y', 106)
   def _reduce_37(val, _values, result)
-     result = SingleOperationEval.new(val[1], :unary) 
+     result = UnaryNegationEval.new(val[1]) 
     result
   end
 .,.,
@@ -656,9 +657,19 @@ module_eval(<<'.,.,', 'mpp_parser.y', 127)
 
 # reduce 52 omitted
 
-# reduce 53 omitted
+module_eval(<<'.,.,', 'mpp_parser.y', 134)
+  def _reduce_53(val, _values, result)
+     result = SimpleOperationEval.new(val[0], val[2], :and) 
+    result
+  end
+.,.,
 
-# reduce 54 omitted
+module_eval(<<'.,.,', 'mpp_parser.y', 135)
+  def _reduce_54(val, _values, result)
+     result = SimpleOperationEval.new(val[0], val[2], :bor) 
+    result
+  end
+.,.,
 
 # reduce 55 omitted
 
