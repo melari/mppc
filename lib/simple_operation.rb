@@ -2,7 +2,8 @@ require_relative 'evaluator.rb'
 require_relative 'term.rb'
 
 class SimpleOperationEval < Evaluator
-  @@command_map = { :add => { true => "ADD", false => "ADD" },
+  @@command_map = { :set => { true => "SET", false => "SET" },
+                    :add => { true => "ADD", false => "ADD" },
                     :sub => { true => "SUB", false => "SUB" },
                     :mul => { true => "MLI", false => "MUL" },
                     :div => { true => "DVI", false => "DIV" },
@@ -10,6 +11,10 @@ class SimpleOperationEval < Evaluator
                     :and => { true => "AND", false => "AND" },
                     :bor => { true => "BOR", false => "BOR" }
                   }
+  def self.command_map
+    @@command_map
+  end
+
 
   def initialize(exp1, exp2, operation)
     @exp1 = exp1

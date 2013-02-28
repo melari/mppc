@@ -63,6 +63,8 @@ rule
         | if_statement
         | return_statement
         | function_call
+        | while_statement
+        | for_statement
         ;
 
     variable_declare
@@ -80,6 +82,26 @@ rule
             var = GetVariableEval.new(val[0])
             result = SetVariableEval.new(var, val[2])
           }
+        | ident PLUS_EQUAL expression
+          {
+            var = GetVariableEval.new(val[0])
+            result = SetVariableEval.new(var, val[2], :add)
+          }
+        | ident MINUS_EQUAL expression
+          {
+            var = GetVariableEval.new(val[0])
+            result = SetVariableEval.new(var, val[2], :sub)
+          }
+        | ident '+' '+'
+          {
+            var = GetVariableEval.new(val[0])
+            result = SetVariableEval.new(var, LiteralEval.new(:int, 1), :add)
+          }
+        | ident '-' '-'
+          {
+            var = GetVariableEval.new(val[0])
+            result = SetVariableEval.new(var, LiteralEval.new(:int, 1), :sub)
+          }
         ;
 
     if_statement
@@ -88,6 +110,14 @@ rule
 
     return_statement
         : RETURN expression { result = ReturnStatementEval.new(val[1]) }
+        ;
+
+    while_statement
+        : WHILE expression statement { result = WhileLoopEval.new(val[1], val[2]) }
+        ;
+
+    for_statement
+        : FOR '(' statement ';' expression ';' statement ')'  statement { result = ForLoopEval.new(val[2], val[4], val[6], val[8]) }
         ;
 
     term
@@ -179,6 +209,7 @@ end
     require_relative 'comparison_operation.rb'
     require_relative 'if_statement.rb'
     require_relative 'arguments.rb'
+    require_relative 'loops.rb'
 
 ---- inner
   #methods can be defined here...

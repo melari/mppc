@@ -1,10 +1,12 @@
 require_relative 'evaluator.rb'
 require_relative 'term.rb'
+require_relative 'simple_operation.rb'
 
 class SetVariableEval < Evaluator
-  def initialize(variable, value)
+  def initialize(variable, value, modifier = :set)
     @variable = variable
     @value = value
+    @modifier = modifier
   end
 
   def eval
@@ -13,7 +15,7 @@ class SetVariableEval < Evaluator
     unless var.same_type? val
       raise TypeError, "Expecting #{var.type} but found #{val.type}"
     end
-    MPPCompiler.out "SET #{var.value}, #{val.value}"
+    MPPCompiler.out "#{SimpleOperationEval.command_map[@modifier][Type.is_signed? var.type]} #{var.value}, #{val.value}"
   end
 
   def memory

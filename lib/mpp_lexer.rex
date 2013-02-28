@@ -35,6 +35,8 @@ rule
                 true                        { [:TRUE, text] }
                 false                       { [:FALSE, text] }
                 return                      { [:RETURN, text] }
+                while                       { [:WHILE, text] }
+                for                         { [:FOR, text] }
 
 # Types
                 int                         { [:INT, text] }
@@ -42,6 +44,8 @@ rule
                 bool                        { [:BOOL, text] }
 
 # Operators
+                \+\=                        { [:PLUS_EQUAL, text] }
+                \-\=                        { [:MINUS_EQUAL, text] }
                 \=\=                        { [:EQUAL, text] }
                 \!\=                        { [:NOT_EQUAL, text] }
                 \<                          { [:LT, text] }
