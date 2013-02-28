@@ -91,9 +91,11 @@ class Variable < Term
 
   @@scope=[]
 
-  def initialize(type, name)
+  def initialize(type, name, size = 1)
     super(type)
     @name = name
+    @size = size
+    @index = nil
     if @@variables.include? name
       throw "Variable #{name} is previously declared."
     end
@@ -105,7 +107,7 @@ class Variable < Term
   end
 
   def reserve_memory
-    @mem_location = @@scope.pop
+    @mem_location = @@scope.pop - @size + 1
     @@scope.push @mem_location-1
   end
 
@@ -113,8 +115,25 @@ class Variable < Term
     if @mem_location.nil?
       throw "Variable.value referenced before reserving memory."
     end
-    return "[Y]" if @mem_location == 0
-    "[Y+#{@mem_location}]"
+    if @index.nil?
+      return "[Y]" if @mem_location == 0
+      return "[Y+#{@mem_location}]"
+    else
+      if @index.location == :literal
+        offset = @mem_location + @index.value.to_i
+        return "[Y]" if @mem_location == 0
+        return "[Y+#{offset}]"
+      else
+        MPPCompiler.out "SET I, Y"
+        MPPCompiler.out "ADD I, #{@index.value}"
+        return "[I]" if @mem_location == 0
+        return "[I+#{@mem_location}]"
+      end
+    end
+  end
+
+  def index=(index)
+    @index = index
   end
 
   def self.new_scope(scope_size)
@@ -127,8 +146,8 @@ class Variable < Term
   end
 
   def self.get(name)
-    return @@variables[name] unless @@variables[name].nil?
-    throw "Unknown variable #{name}."
+    throw "Unknown variable #{name}." if @@variables[name].nil?
+    @@variables[name]
   end
 end
 

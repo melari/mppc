@@ -24,28 +24,40 @@ class SetVariableEval < Evaluator
 end
 
 class GetVariableEval < Evaluator
-  def initialize(name)
+  def initialize(name, index_expression = nil)
     @name = name
+    @index_expression = index_expression
   end
 
   def eval
-    Variable.get @name
+    index = nil
+    if @index_expression
+      term = @index_expression.eval
+      unless term.type == :int 
+        raise TypeError, "Expecting int but found #{term.type}"
+      end
+      index = term
+    end
+    var = Variable.get @name
+    var.index = index
+    var
   end
 end
 
 class DefineVariableEval < Evaluator
-  def initialize(type, name)
+  def initialize(type, name, size = 1)
     @type = type
     @name = name
+    @size = size.to_i
   end
 
   def eval
-    variable = Variable.new(Type.parse(@type), @name)
+    variable = Variable.new(Type.parse(@type), @name, @size)
     variable.reserve_memory
     variable
   end
 
   def memory
-    1
+    @size
   end
 end

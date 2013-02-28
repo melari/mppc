@@ -1,7 +1,10 @@
 def main
 {
-  for (int i = 1; i < 10; i++)
-  {
-    int b = i
-  }
+  int a = 1
+  int[5] b
+  b[a] = 2
+  int c = 3
+  c -= 2
+  b[c]++
+  return b[1]
 }

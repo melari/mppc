@@ -74,34 +74,35 @@ rule
             var = DefineVariableEval.new(val[0], val[1])
             result = SetVariableEval.new(var, val[3])
           }
+        | type '[' DECIMAL ']' ident { result = DefineVariableEval.new(val[0], val[4], val[2]) }
         ;
 
     variable_set
-        : ident '=' expression
+        : variable_reference '=' expression
           {
-            var = GetVariableEval.new(val[0])
-            result = SetVariableEval.new(var, val[2])
+            result = SetVariableEval.new(val[0], val[2])
           }
-        | ident PLUS_EQUAL expression
+        | variable_reference PLUS_EQUAL expression
           {
-            var = GetVariableEval.new(val[0])
-            result = SetVariableEval.new(var, val[2], :add)
+            result = SetVariableEval.new(val[0], val[2], :add)
           }
-        | ident MINUS_EQUAL expression
+        | variable_reference MINUS_EQUAL expression
           {
-            var = GetVariableEval.new(val[0])
-            result = SetVariableEval.new(var, val[2], :sub)
+            result = SetVariableEval.new(val[0], val[2], :sub)
           }
-        | ident '+' '+'
+        | variable_reference '+' '+'
           {
-            var = GetVariableEval.new(val[0])
-            result = SetVariableEval.new(var, LiteralEval.new(:int, 1), :add)
+            result = SetVariableEval.new(val[0], LiteralEval.new(:int, 1), :add)
           }
-        | ident '-' '-'
+        | variable_reference '-' '-'
           {
-            var = GetVariableEval.new(val[0])
-            result = SetVariableEval.new(var, LiteralEval.new(:int, 1), :sub)
+            result = SetVariableEval.new(val[0], LiteralEval.new(:int, 1), :sub)
           }
+        ;
+
+    variable_reference
+        : ident { result = GetVariableEval.new(val[0]) }
+        | ident '[' expression ']' { result = GetVariableEval.new(val[0], val[2]) }
         ;
 
     if_statement
@@ -121,7 +122,7 @@ rule
         ;
 
     term
-        : ident { result = GetVariableEval.new(val[0]) }
+        : variable_reference
         | '(' expression ')' { result = val[1] }
         | function_call
         | constant
