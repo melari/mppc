@@ -152,10 +152,20 @@ class ArrayVariable < Variable
     if @mem_location.nil?
       throw "Variable.value referenced before reserving memory."
     end
-    MPPCompiler.out "SET I, #{value}"
-    MPPCompiler.out "ADD I, #{index.value}"
-    MPPCompiler.out "ADD I, 1"
-    "[I]"
+    reg = @@locked ? 'J' : 'I'
+    MPPCompiler.out "SET #{reg}, #{value}"
+    MPPCompiler.out "ADD #{reg}, #{index.value}"
+    MPPCompiler.out "ADD #{reg}, 1"
+    IndirectRegister.new(@type, @name, reg)
+  end
+
+  @@locked = false
+  def self.lock
+    @@locked = true
+  end
+
+  def self.free
+    @@locked = false
   end
 end
 
