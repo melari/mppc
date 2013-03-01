@@ -105,6 +105,8 @@ rule
     variable_reference
         : ident { result = GetVariableEval.new(val[0]) }
         | ident '[' expression ']' { result = GetArrayEval.new(val[0], val[2]) }
+        | '@' ident { result = GetPointerEval.new(val[1]) }
+        | '~' ident { result = GetReferenceEval.new(val[1]) }
         ;
 
     if_statement
@@ -215,6 +217,7 @@ end
     require_relative 'loops.rb'
     require_relative 'array.rb'
     require_relative 'asm.rb'
+    require_relative 'pointer.rb'
 
 ---- inner
   #methods can be defined here...

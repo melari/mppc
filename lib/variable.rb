@@ -11,9 +11,9 @@ class SetVariableEval < Evaluator
 
   def eval
     val = @value.eval
-    ArrayVariable.lock if val.is_a? IndirectRegister
+    Variable.lock_indirect if val.is_a? IndirectRegister
     var = @variable.eval
-    ArrayVariable.free
+    Variable.free_indirect
 
     unless var.same_type? val
       raise TypeError, "Expecting #{var.type} but found #{val.type}"

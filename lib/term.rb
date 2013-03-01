@@ -127,6 +127,19 @@ class Variable < Term
     return "[Y+#{@mem_location}]"
   end
 
+  def reference_value
+    reg = Variable.get_indirect_reg
+    MPPCompiler.out "SET #{reg}, Y"
+    MPPCompiler.out "ADD #{reg}, #{@mem_location}" unless @mem_location == 0
+    Register.new(@type, reg)
+  end
+
+  def dereference_value
+    reg = Variable.get_indirect_reg
+    MPPCompiler.out "SET #{reg}, #{value}"
+    IndirectRegister.new(@type, @name, reg)
+  end
+
   def self.new_scope(scope_size)
     @@scope.push scope_size-1
   end
@@ -140,6 +153,19 @@ class Variable < Term
     throw "Unknown variable #{name}." if @@variables[name].nil?
     @@variables[name]
   end
+
+  @@indirect_locked = false
+  def self.lock_indirect
+    @@indirect_locked = true
+  end
+
+  def self.free_indirect
+    @@indirect_locked = false
+  end
+
+  def self.get_indirect_reg
+    @@indirect_locked ? 'J' : 'I'
+  end
 end
 
 class ArrayVariable < Variable
@@ -152,7 +178,7 @@ class ArrayVariable < Variable
     if @mem_location.nil?
       throw "Variable.value referenced before reserving memory."
     end
-    reg = @@locked ? 'J' : 'I'
+    reg = Variable.get_indirect_reg
     MPPCompiler.out "SET #{reg}, #{value}"
     MPPCompiler.out "ADD #{reg}, #{index.value}"
     MPPCompiler.out "ADD #{reg}, 1"
@@ -160,13 +186,6 @@ class ArrayVariable < Variable
   end
 
   @@locked = false
-  def self.lock
-    @@locked = true
-  end
-
-  def self.free
-    @@locked = false
-  end
 end
 
 # Created by array.rb::GetArrayEval.eval
