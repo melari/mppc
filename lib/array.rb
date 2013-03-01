@@ -14,6 +14,9 @@ class GetArrayEval < GetVariableEval
       raise TypeError, "Expecting int but found #{term.type}."
     end
     var = Variable.get @name
+    unless var.is_a? ArrayVariable
+      raise TypeError, "Cannot index into a non-array type."
+    end
     var.indexed_value(term)
     IndirectRegister.new(var.type, var.name, 'I')
   end
@@ -28,8 +31,10 @@ class DefineArrayEval < DefineVariableEval
   def eval
     variable = ArrayVariable.new(Type.parse(@type), @name, @size)
     variable.reserve_memory
-    MPPCompiler.out "SET #{variable.value}, Y"
-    MPPCompiler.out "ADD #{variable.value}, #{variable.mem_location}"
+    if @size > 1
+      MPPCompiler.out "SET #{variable.value}, Y"
+      MPPCompiler.out "ADD #{variable.value}, #{variable.mem_location}"
+    end
     variable
   end
 

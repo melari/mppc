@@ -74,6 +74,7 @@ rule
             var = DefineVariableEval.new(val[0], val[1])
             result = SetVariableEval.new(var, val[3])
           }
+        | type '[' ']' ident { result = DefineArrayEval.new(val[0], val[3], 0) }
         | type '[' DECIMAL ']' ident { result = DefineArrayEval.new(val[0], val[4], val[2]) }
         ;
 

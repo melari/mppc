@@ -1,15 +1,18 @@
 def main
 {
   int[5] b
-  modify_array(b)
-  return b[1]
+  b[0] = 0
+  b[1] = 10
+  b[2] = 9
+  b[3] = 2
+  b[4] = 5
+  return average(b, 5)
 }
 
-def modify_array(int array)
+int average(int[] array, int size)
 {
-  int a = 1
-  array[a] = 2
-  int c = 3
-  c -= 2
-  array[c]++
+  int result = 0
+  for (int i = 0; i < size; i++)
+    result += array[i]
+  return result / size
 }

@@ -94,7 +94,7 @@ class Variable < Term
   def initialize(type, name, mem_location = nil)
     super(type)
     @name = name
-    @size = 1
+    @size = 0
     @mem_location = mem_location
     if @@variables.include? name
       throw "Variable #{name} is previously declared."
@@ -107,7 +107,7 @@ class Variable < Term
   end
 
   def reserve_memory
-    @mem_location = @@scope.pop - @size + 1
+    @mem_location = @@scope.pop - @size
     @@scope.push @mem_location-1
   end
 
@@ -146,7 +146,6 @@ class ArrayVariable < Variable
   def initialize(type, name, size)
     super(type, name)
     @size = size
-    @index = Literal.new(:int, 1)
   end
 
   def indexed_value(index)
@@ -154,7 +153,8 @@ class ArrayVariable < Variable
       throw "Variable.value referenced before reserving memory."
     end
     MPPCompiler.out "SET I, #{value}"
-    MPPCompiler.out "ADD I, #{@index.value}"
+    MPPCompiler.out "ADD I, #{index.value}"
+    MPPCompiler.out "ADD I, 1"
     "[I]"
   end
 end
