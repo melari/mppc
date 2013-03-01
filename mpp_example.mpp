@@ -1,14 +1,9 @@
 def main
 {
-  int[5] message
-  message[0] = 0x1048
-  message[1] = 0x1065
-  message[2] = 0x106C
-  message[3] = 0x106C
-  message[4] = 0x106F
+  %s message = "Hello World!"
 
   init_screen()
-  print(message, 5)
+  print(message)
 }
 
 def init_screen
@@ -36,9 +31,14 @@ def init_screen
 def print(int[] string, int length)
 {
   int cursor = 0x8000
-  for (int i = 0; i < length; i++)
+  int i = 0
+  int char = string[i]
+  while (char && 0x00FF != 0)
   {
-    @cursor = string[i]
-    cursor++
+    @cursor = char
+    cursor += 1
+
+    i++
+    char = string[i]
   }
 }

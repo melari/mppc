@@ -41,6 +41,9 @@ rule
                 while                       { [:WHILE, text] }
                 for                         { [:FOR, text] }
 
+# Generators
+                \%s                          { [:GEN_STRING, text] }
+
 # Types
                 int                         { [:INT, text] }
                 uint                        { [:UINT, text] }

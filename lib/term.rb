@@ -216,7 +216,9 @@ class Register < Term
   end
 
   def value
-    @name
+    return @name unless @name == 'POP'
+    MPPCompiler.out "SET B, POP"
+    'B'
   end
 
   def value=(x)

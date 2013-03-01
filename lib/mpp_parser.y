@@ -77,6 +77,7 @@ rule
           }
         | type '[' ']' ident { result = DefineArrayEval.new(val[0], val[3], 0) }
         | type '[' DECIMAL ']' ident { result = DefineArrayEval.new(val[0], val[4], val[2]) }
+        | GEN_STRING ident '=' STRING { result = StringGenEval.new(val[1], val[3]) }
         ;
 
     variable_set
@@ -157,18 +158,18 @@ rule
         ;
 
     relation
-        : add EQUAL add { result = ComparisonOperationEval.new(val[0], val[2], :equal) }
-        | add NOT_EQUAL add { result = ComparisonOperationEval.new(val[0], val[2], :not_equal) }
-        | add LT add { result = ComparisonOperationEval.new(val[0], val[2], :lt) }
-        | add GT add { result = ComparisonOperationEval.new(val[0], val[2], :gt) }
-        | add LTE add
-        | add GTE add
+        : relation AND add { result = SimpleOperationEval.new(val[0], val[2], :and) }
+        | relation OR add { result = SimpleOperationEval.new(val[0], val[2], :bor) }
         | add
         ;
 
     expression
-        : expression AND relation { result = SimpleOperationEval.new(val[0], val[2], :and) }
-        | expression OR relation { result = SimpleOperationEval.new(val[0], val[2], :bor) }
+        : relation EQUAL relation { result = ComparisonOperationEval.new(val[0], val[2], :equal) }
+        | relation NOT_EQUAL relation { result = ComparisonOperationEval.new(val[0], val[2], :not_equal) }
+        | relation LT relation { result = ComparisonOperationEval.new(val[0], val[2], :lt) }
+        | relation GT relation { result = ComparisonOperationEval.new(val[0], val[2], :gt) }
+        | relation LTE relation
+        | relation GTE relation
         | relation
         ;
 
@@ -218,6 +219,7 @@ end
     require_relative 'array.rb'
     require_relative 'asm.rb'
     require_relative 'pointer.rb'
+    require_relative 'generators.rb'
 
 ---- inner
   #methods can be defined here...

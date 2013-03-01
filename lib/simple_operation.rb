@@ -36,7 +36,6 @@ class SimpleOperationEval < Evaluator
     Register.use 'B'
     term2 = @exp2.eval
     Register.end_use
-
     unless term1.same_type? term2
       raise TypeError, "Expecting #{term1.type} but found #{term2.type}**"
     end
