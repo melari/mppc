@@ -91,11 +91,11 @@ class Variable < Term
 
   @@scope=[]
 
-  def initialize(type, name, size = 1)
+  def initialize(type, name, mem_location = nil)
     super(type)
     @name = name
-    @size = size
-    @index = nil
+    @size = 1
+    @mem_location = mem_location
     if @@variables.include? name
       throw "Variable #{name} is previously declared."
     end
@@ -111,29 +111,20 @@ class Variable < Term
     @@scope.push @mem_location-1
   end
 
+  def mem_location
+    @mem_location
+  end
+
+  def name
+    @name
+  end
+
   def value
     if @mem_location.nil?
       throw "Variable.value referenced before reserving memory."
     end
-    if @index.nil?
-      return "[Y]" if @mem_location == 0
-      return "[Y+#{@mem_location}]"
-    else
-      if @index.location == :literal
-        offset = @mem_location + @index.value.to_i
-        return "[Y]" if @mem_location == 0
-        return "[Y+#{offset}]"
-      else
-        MPPCompiler.out "SET I, Y"
-        MPPCompiler.out "ADD I, #{@index.value}"
-        return "[I]" if @mem_location == 0
-        return "[I+#{@mem_location}]"
-      end
-    end
-  end
-
-  def index=(index)
-    @index = index
+    return "[Y]" if @mem_location == 0
+    return "[Y+#{@mem_location}]"
   end
 
   def self.new_scope(scope_size)
@@ -148,6 +139,40 @@ class Variable < Term
   def self.get(name)
     throw "Unknown variable #{name}." if @@variables[name].nil?
     @@variables[name]
+  end
+end
+
+class ArrayVariable < Variable
+  def initialize(type, name, size)
+    super(type, name)
+    @size = size
+    @index = Literal.new(:int, 1)
+  end
+
+  def indexed_value(index)
+    if @mem_location.nil?
+      throw "Variable.value referenced before reserving memory."
+    end
+    MPPCompiler.out "SET I, #{value}"
+    MPPCompiler.out "ADD I, #{@index.value}"
+    "[I]"
+  end
+end
+
+# Created by array.rb::GetArrayEval.eval
+class IndirectRegister < Term
+  def initialize(type, name, register)
+    super(type)
+    @name = name
+    @register = register
+  end
+
+  def location
+    :memory
+  end
+
+  def value
+    "[#{@register}]"
   end
 end
 

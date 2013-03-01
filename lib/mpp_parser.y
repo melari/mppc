@@ -74,7 +74,7 @@ rule
             var = DefineVariableEval.new(val[0], val[1])
             result = SetVariableEval.new(var, val[3])
           }
-        | type '[' DECIMAL ']' ident { result = DefineVariableEval.new(val[0], val[4], val[2]) }
+        | type '[' DECIMAL ']' ident { result = DefineArrayEval.new(val[0], val[4], val[2]) }
         ;
 
     variable_set
@@ -102,7 +102,7 @@ rule
 
     variable_reference
         : ident { result = GetVariableEval.new(val[0]) }
-        | ident '[' expression ']' { result = GetVariableEval.new(val[0], val[2]) }
+        | ident '[' expression ']' { result = GetArrayEval.new(val[0], val[2]) }
         ;
 
     if_statement
@@ -211,6 +211,7 @@ end
     require_relative 'if_statement.rb'
     require_relative 'arguments.rb'
     require_relative 'loops.rb'
+    require_relative 'array.rb'
 
 ---- inner
   #methods can be defined here...

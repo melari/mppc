@@ -18,10 +18,11 @@ require 'racc/parser.rb'
     require_relative 'if_statement.rb'
     require_relative 'arguments.rb'
     require_relative 'loops.rb'
+    require_relative 'array.rb'
 
 class MPP < Racc::Parser
 
-module_eval(<<'...end mpp_parser.y/module_eval...', 'mpp_parser.y', 216)
+module_eval(<<'...end mpp_parser.y/module_eval...', 'mpp_parser.y', 217)
   #methods can be defined here...
 ...end mpp_parser.y/module_eval...
 ##### State transition tables begin ###
@@ -617,7 +618,7 @@ module_eval(<<'.,.,', 'mpp_parser.y', 73)
 
 module_eval(<<'.,.,', 'mpp_parser.y', 76)
   def _reduce_29(val, _values, result)
-     result = DefineVariableEval.new(val[0], val[4], val[2]) 
+     result = DefineArrayEval.new(val[0], val[4], val[2]) 
     result
   end
 .,.,
@@ -671,7 +672,7 @@ module_eval(<<'.,.,', 'mpp_parser.y', 103)
 
 module_eval(<<'.,.,', 'mpp_parser.y', 104)
   def _reduce_36(val, _values, result)
-     result = GetVariableEval.new(val[0], val[2]) 
+     result = GetArrayEval.new(val[0], val[2]) 
     result
   end
 .,.,
