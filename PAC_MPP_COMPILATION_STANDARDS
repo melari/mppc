@@ -6,6 +6,7 @@ PaC MPP COMPILATION STANDARDS
   * Register A is used for function return values and intermediate values. It does not have to be preserved.
   * Register X is used to store the previous location of SP at the start of a function. This must be preserved.
   * Register Y is used to store the top of the local variable stack. This must be preserved.
+  * Registers I and J are used for indirect array access.
 
 == Stack Structure and Function call-run-return flow:
 
