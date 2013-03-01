@@ -65,6 +65,7 @@ rule
         | function_call
         | while_statement
         | for_statement
+        | ASM { result = ASMEval.new(val[0]) }
         ;
 
     variable_declare
@@ -213,6 +214,7 @@ end
     require_relative 'arguments.rb'
     require_relative 'loops.rb'
     require_relative 'array.rb'
+    require_relative 'asm.rb'
 
 ---- inner
   #methods can be defined here...

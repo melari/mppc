@@ -70,6 +70,9 @@ class MPP < Racc::Parser
         when (text = ss.scan(/\'[^']*\'/))
            @rex_tokens.push action { [:STRING, text[1..-2]] }
 
+        when (text = ss.scan(/\<\<ASM[^\>]*\>\>/))
+           @rex_tokens.push action { [:ASM, text[5..-3]] }
+
         when (text = ss.scan(/0x(\d|A|B|C|D|E|F|a|b|c|d|e|f)+/))
            @rex_tokens.push action { [:HEX, text] }
 

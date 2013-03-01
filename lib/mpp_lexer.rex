@@ -22,6 +22,9 @@ rule
                 \"[^"]*\"                   { [:STRING, text[1..-2]] }
                 \'[^']*\'                   { [:STRING, text[1..-2]] }
 
+# ASM 'String Literals'
+                \<\<ASM[^\>]*\>\>           { [:ASM, text[5..-3]] }
+
 # Numerical Literals
                 0x(\d|A|B|C|D|E|F|a|b|c|d|e|f)+   { [:HEX, text] }
                 \d+                         { [:DECIMAL, text] }
