@@ -88,17 +88,17 @@ class FunctionCallEval < Evaluator
     end
 
     unless @arguments.nil?
-      mem_location = 1
+      mem_location = @arguments.count
       @arguments.each do |expression|
         term = expression.eval
-        if term.location == :memory
-          result_register.value = term.value
-          term = result_register
-        end
+#       if term.location == :memory
+#         result_register.value = term.value
+#         term = result_register
+#       end
         MPPCompiler.out "SUB SP, #{@arguments.count+4}"
         MPPCompiler.out "SET [SP+#{mem_location}], #{term.value}"
         MPPCompiler.out "ADD SP, #{@arguments.count+4}"
-        mem_location += 1
+        mem_location -= 1
       end
     end
 
