@@ -19,6 +19,7 @@ class SetVariableEval < Evaluator
       raise TypeError, "Expecting #{var.type} but found #{val.type}"
     end
     MPPCompiler.out "#{SimpleOperationEval.command_map[@modifier][Type.is_signed? var.type]} #{var.value}, #{val.value}"
+    var
   end
 
   def memory

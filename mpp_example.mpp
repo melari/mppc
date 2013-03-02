@@ -1,6 +1,7 @@
 def main
 {
   %s message = "Hello World!"
+  %t message = [10 20 30 40 50]
 
   init_screen()
   print(message)
@@ -32,13 +33,13 @@ def print(int[] string, int length)
 {
   int cursor = 0x8000
   int i = 0
-  int char = string[i]
+  char = string[i]
   while (char && 0x00FF != 0)
   {
-    @cursor = char
+    @cursor = char && 0x00FF || 0x1000
     cursor += 1
 
-    i++
     char = string[i]
+    i++
   }
 }

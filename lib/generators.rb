@@ -20,3 +20,22 @@ class StringGenEval < Evaluator
     @string.length + 1
   end
 end
+
+class IntGenEval < Evaluator
+  def initialize(name, values)
+    @name = name
+    @values = values
+  end
+
+  def eval
+    variable = DefineArrayEval.new("int", @name, @values.length).eval
+    @values.each do |val|
+      offset += 1
+      MPPCompiler.out "SET [Y+#{offset}], #{val}"
+    end
+  end
+
+  def memory
+    @values.length + 1
+  end
+end

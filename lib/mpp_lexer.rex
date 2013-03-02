@@ -42,7 +42,8 @@ rule
                 for                         { [:FOR, text] }
 
 # Generators
-                \%s                          { [:GEN_STRING, text] }
+                \%s                         { [:GEN_STRING, text] }
+                \%i                         { [:GEN_INT, text]}
 
 # Types
                 int                         { [:INT, text] }
