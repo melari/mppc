@@ -47,3 +47,11 @@ Placeholder MP+ Documentation
 
   for(<statement1>; <expression>; <statement2>) <statement3>
     Perform statement1, then continue to perform statement3 while expression evaluates to true or non-zero. Statement2 is performed at the end of each iteration.
+
+==Embeded Assembly
+  Any text between <<ASM and >> will not be compiled. This allows for raw ASM to be directly embeded within mp+
+
+  def setB <<ASM SET B, 0xFFFF >>
+
+==Generators
+  %s <name> = "<string>"   Creates an int[] containing containing the null terminated values of string. Each character has 0xF000 added to it (LEM color white)
