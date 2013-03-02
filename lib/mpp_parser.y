@@ -78,12 +78,12 @@ rule
         | type '[' ']' ident { result = DefineArrayEval.new(val[0], val[3], 0) }
         | type '[' DECIMAL ']' ident { result = DefineArrayEval.new(val[0], val[4], val[2]) }
         | GEN_STRING ident '=' STRING { result = StringGenEval.new(val[1], val[3]) }
-        | GEN_INT ident '=' '[' int_list ']' { result = IntGenEval.new(val[1], val[3]) }
+        | GEN_INT ident '=' '[' int_list ']' { result = IntGenEval.new(val[1], val[4]) }
         ;
 
     int_list
         : DECIMAL { result = [val[0]] }
-        | DECIMAL int_list { result = val[1] << val[0] }
+        | DECIMAL int_list { result = val[1].unshift(val[0]) }
         | /* none */ { result = [] }
         ;
 

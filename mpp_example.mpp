@@ -1,7 +1,7 @@
 def main
 {
   %s message = "Hello World!"
-  %t message = [10 20 30 40 50]
+  %i testing = [10 20 30 40 50]
 
   init_screen()
   print(message)

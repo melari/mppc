@@ -29,6 +29,7 @@ class IntGenEval < Evaluator
 
   def eval
     variable = DefineArrayEval.new("int", @name, @values.length).eval
+    offset = variable.mem_location
     @values.each do |val|
       offset += 1
       MPPCompiler.out "SET [Y+#{offset}], #{val}"
