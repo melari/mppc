@@ -5,6 +5,7 @@ def main
 
   init_screen()
   print(message)
+  return (true ? 1 : 0)
 }
 
 def init_screen
@@ -33,7 +34,7 @@ def print(int[] string, int length)
 {
   int cursor = 0x8000
   int i = 0
-  char = string[i]
+  int char = string[i]
   while (char && 0x00FF != 0)
   {
     @cursor = char && 0x00FF || 0x1000

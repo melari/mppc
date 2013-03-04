@@ -138,6 +138,7 @@ rule
         | '(' expression ')' { result = val[1] }
         | function_call
         | constant
+        | conditional_expression
         ;
 
     negation
@@ -178,6 +179,10 @@ rule
         | relation LTE relation
         | relation GTE relation
         | relation
+        ;
+
+    conditional_expression
+        : expression '?' expression ':' expression { result = ConditionalExpressionEval.new(val[0], val[2], val[4]) }
         ;
 
     function_call
@@ -227,6 +232,7 @@ end
     require_relative 'asm.rb'
     require_relative 'pointer.rb'
     require_relative 'generators.rb'
+    require_relative 'conditional_expression.rb'
 
 ---- inner
   #methods can be defined here...
