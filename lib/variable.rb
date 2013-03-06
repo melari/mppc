@@ -33,7 +33,8 @@ class GetVariableEval < Evaluator
   end
 
   def eval
-    var = Variable.get @name
+    var = Variable.get(@name)
+    throw "Unknown variable #{name}." if var.nil?
     var
   end
 end

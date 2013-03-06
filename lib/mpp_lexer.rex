@@ -33,6 +33,7 @@ rule
                 require                     { [:REQUIRE, text] }
                 if                          { [:IF, text] }
                 def                         { [:DEF, text] }
+                global                      { [:GLOBAL, text] }
                 do                          { [:DO, text] }
                 end                         { [:END, text] }
                 true                        { [:TRUE, text] }

@@ -49,7 +49,7 @@ EOS
 
     if @@options.include? "run"
       `rm mpp_example.asm`
-      system("ruby", "lib/mppc", "mpp_example.mpp", "-o", "mpp_example.asm")
+      system("ruby", "lib/mppc", "mpp_example.mpp", "-o", "mpp_example.asm", "-v")
       puts "[DONE] Running."
       File.readlines("mpp_example.asm").each { |line| puts line }
     end

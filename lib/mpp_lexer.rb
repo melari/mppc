@@ -88,6 +88,9 @@ class MPP < Racc::Parser
         when (text = ss.scan(/def/))
            @rex_tokens.push action { [:DEF, text] }
 
+        when (text = ss.scan(/global/))
+           @rex_tokens.push action { [:GLOBAL, text] }
+
         when (text = ss.scan(/do/))
            @rex_tokens.push action { [:DO, text] }
 

@@ -150,8 +150,7 @@ class Variable < Term
   end
 
   def self.get(name)
-    throw "Unknown variable #{name}." if @@variables[name].nil?
-    @@variables[name]
+    @@variables[name] || Global.get(name)
   end
 
   @@indirect_locked = false

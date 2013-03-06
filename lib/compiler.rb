@@ -6,7 +6,8 @@ class MPPCompiler
     @@out = nil
     @@last = ""
 
-    def self.run(input, output)
+    def self.run(input, output, verbose = false)
+      @verbose = verbose
       @parser = MPP.new
       @@out = File.open(output, "w")
 
@@ -22,8 +23,11 @@ class MPPCompiler
       puts @parser.tokenize(input).inspect
     end
 
-    def self.out(val)
-      @@out.puts val unless @@out.nil?
+    def self.out(val, comment = nil)
+      value = val
+      value += " ; #{comment}" if comment && @verbose
+
+      @@out.puts value unless @@out.nil?
       @@last += val + "\n"
     end
 
@@ -31,5 +35,9 @@ class MPPCompiler
       l = @@last
       @@last = ""
       l
+    end
+
+    def self.boot_size
+      4
     end
 end

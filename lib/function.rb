@@ -9,6 +9,7 @@ class FunctionListEval < Evaluator
 
   def add_member(function)
     @functions << function
+    self
   end
 
   def eval

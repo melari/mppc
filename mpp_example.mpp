@@ -1,11 +1,14 @@
+global int cursor = 0x8000
+
 def main
 {
-  %s message = "Hello World!"
+  %s message = "Hello World!%What's going on?"
+  %s message2 = "%Everything!"
   %i testing = [10 20 30 40 50]
 
   init_screen()
   print(message)
-  return (true ? 1 : 0)
+  print(message2)
 }
 
 def init_screen
@@ -32,15 +35,18 @@ def init_screen
 
 def print(int[] string, int length)
 {
-  int cursor = 0x8000
   int i = 0
   int char = string[i]
   while (char && 0x00FF != 0)
   {
+    if (char && 0x00FF == 0x25)
+      new_line()
     @cursor = char && 0x00FF || 0x1000
     cursor += 1
 
-    char = string[i]
     i++
+    char = string[i]
   }
 }
+
+def new_line cursor = (cursor && 0xFFE0) + 0x0020

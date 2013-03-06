@@ -4,7 +4,15 @@ rule
     target
         : require_list
         | function_list
+        | global_list
+        | require_list global_list
         | require_list function_list
+        | global_list function_list
+          {
+            result = EvalList.new(val[0])
+            result.add_member(val[1])
+          }
+        | require_list global_list function_list
         | /* nothing */
         ;
 
@@ -17,13 +25,19 @@ rule
         | require_list REQUIRE STRING
         ;
 
+    global_list
+        : global_define { result = EvalList.new(val[0]) }
+        | global_list global_define { result = val[0].add_member val[1] }
+        | /* none */
+        ;
+
+   global_define
+        : GLOBAL type ident '=' constant { result = GlobalDefineEval.new(val[1], val[2], val[4]) }
+        ;
+
     function_list
         : function { result = FunctionListEval.new(val[0]) }
-        | function_list function
-          {
-            val[0].add_member val[1]
-            result = val[0]
-          }
+        | function_list function { result = val[0].add_member val[1] }
         ;
 
     function
@@ -233,6 +247,7 @@ end
     require_relative 'pointer.rb'
     require_relative 'generators.rb'
     require_relative 'conditional_expression.rb'
+    require_relative 'global.rb'
 
 ---- inner
   #methods can be defined here...

@@ -10,7 +10,11 @@ class MPPC < TerminalRunner
 
   option "--help", 0, "", "Shows this help file."
   option "--output", 1, "<file>", "Sets the output file."
+  option "--verbose", 0, "", "Show inline comments in the generated assembly."
+
   option_alias "--output", "-o"
+  option_alias "--verbose", "-v"
+
   help <<EOS
     Please make sure to read the README for information about this compiler.
     Read MPP_DOCS for information about MP+ in general.
@@ -32,7 +36,7 @@ EOS
       exit
     end
 
-    MPPCompiler.run(@@params["input"], output)
+    MPPCompiler.run(@@params["input"], output, !@@options["--verbose"].nil?)
   end
 end
 
