@@ -48,6 +48,10 @@ class Function
   def label
     @label
   end
+
+  def to_s
+    "#{@type} #{@name}"
+  end
 end
 
 class FunctionEval < Evaluator
@@ -61,7 +65,7 @@ class FunctionEval < Evaluator
     memory_req = @statement.memory + @arguments.memory
 
     Variable.new_scope memory_req
-    MPPCompiler.out ":#{@function.label}"
+    MPPCompiler.out ":#{@function.label}", @function.to_s
     MPPCompiler.out "SET PUSH, X"
     MPPCompiler.out "SET PUSH, Y"
     MPPCompiler.out "SET X, SP"

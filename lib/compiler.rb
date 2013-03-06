@@ -25,6 +25,7 @@ class MPPCompiler
 
     def self.out(val, comment = nil)
       value = val
+      value += " " * (20-val.length) if val.length < 20
       value += " ; #{comment}" if comment && @verbose
 
       @@out.puts value unless @@out.nil?
