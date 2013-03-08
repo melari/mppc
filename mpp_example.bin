@@ -1,0 +1,183 @@
+JSR main            
+:crash SET PC, crash
+DAT 32768           
+:main               
+SET PUSH, X         
+SET PUSH, Y         
+SET X, SP           
+SUB SP, 51          
+SET Y, SP           
+SET [Y+20], Y       
+ADD [Y+20], 20      
+SET [Y+21], 61512   
+SET [Y+22], 61541   
+SET [Y+23], 61548   
+SET [Y+24], 61548   
+SET [Y+25], 61551   
+SET [Y+26], 61472   
+SET [Y+27], 61527   
+SET [Y+28], 61551   
+SET [Y+29], 61554   
+SET [Y+30], 61548   
+SET [Y+31], 61540   
+SET [Y+32], 61473   
+SET [Y+33], 61477   
+SET [Y+34], 61527   
+SET [Y+35], 61544   
+SET [Y+36], 61537   
+SET [Y+37], 61556   
+SET [Y+38], 61479   
+SET [Y+39], 61555   
+SET [Y+40], 61472   
+SET [Y+41], 61543   
+SET [Y+42], 61551   
+SET [Y+43], 61545   
+SET [Y+44], 61550   
+SET [Y+45], 61543   
+SET [Y+46], 61472   
+SET [Y+47], 61551   
+SET [Y+48], 61550   
+SET [Y+49], 61503   
+SET [Y+50], 61440   
+SET [Y+6], Y        
+ADD [Y+6], 6        
+SET [Y+7], 61477    
+SET [Y+8], 61509    
+SET [Y+9], 61558    
+SET [Y+10], 61541   
+SET [Y+11], 61554   
+SET [Y+12], 61561   
+SET [Y+13], 61556   
+SET [Y+14], 61544   
+SET [Y+15], 61545   
+SET [Y+16], 61550   
+SET [Y+17], 61543   
+SET [Y+18], 61473   
+SET [Y+19], 61440   
+SET [Y], Y          
+ADD [Y], 0          
+SET [Y+1], 10       
+SET [Y+2], 20       
+SET [Y+3], 30       
+SET [Y+4], 40       
+SET [Y+5], 50       
+JSR f1              
+SUB SP, 5           
+SET [SP+1], [Y+20]  
+ADD SP, 5           
+JSR f2              
+SUB SP, 5           
+SET [SP+1], [Y+6]   
+ADD SP, 5           
+JSR f2              
+SET A, 0            
+SET SP, X           
+SET Y, POP          
+SET X, POP          
+SET PC, POP         
+:f1                 
+SET PUSH, X         
+SET PUSH, Y         
+SET X, SP           
+SUB SP, 0           
+SET Y, SP           
+SET PUSH, X
+SET PUSH, Y
+HWN Z
+:init
+SUB Z, 1
+HWQ Z
+IFE A, 0xF615
+IFE B, 0x7349
+SET PC, setup_monitor
+SET PC, init
+:setup_monitor
+SET A, 0
+SET B, 0x8000
+HWI Z
+SET Y, POP
+SET X, POP
+SET A, 0            
+SET SP, X           
+SET Y, POP          
+SET X, POP          
+SET PC, POP         
+:f2                 
+SET PUSH, X         
+SET PUSH, Y         
+SET X, SP           
+SUB SP, 4           
+SET Y, SP           
+SET [Y+1], 0        
+SET I, [Y+3]        
+ADD I, [Y+1]        
+ADD I, 1            
+SET [Y], [I]        
+:while1             
+SET A, [Y]          
+AND A, 255          
+SET PUSH, A         
+SET B, POP          
+IFN B, 0            
+SET PC, coe1        
+SET A, 0            
+SET PC, coe2        
+:coe1               
+SET A, 1            
+:coe2               
+IFE A, 0            
+SET PC, while2      
+SET A, [Y]          
+AND A, 255          
+SET PUSH, A         
+SET B, POP          
+IFE B, 37           
+SET PC, coe3        
+SET A, 0            
+SET PC, coe4        
+:coe3               
+SET A, 1            
+:coe4               
+IFE A, 0            
+SET PC, if1         
+JSR f3              
+:if1                
+SET A, [Y]          
+AND A, 255          
+SET PUSH, A         
+SET B, POP          
+SET A, B            
+BOR A, 4096         
+SET I, [4]          
+SET [I], A          
+ADD [4], 1          
+ADD [Y+1], 1        
+SET I, [Y+3]        
+ADD I, [Y+1]        
+ADD I, 1            
+SET [Y], [I]        
+SET PC, while1      
+:while2             
+SET A, 0            
+SET SP, X           
+SET Y, POP          
+SET X, POP          
+SET PC, POP         
+:f3                 
+SET PUSH, X         
+SET PUSH, Y         
+SET X, SP           
+SUB SP, 0           
+SET Y, SP           
+SET A, [4]          
+AND A, 65504        
+SET PUSH, A         
+SET B, POP          
+SET A, B            
+ADD A, 32           
+SET [4], A          
+SET A, 0            
+SET SP, X           
+SET Y, POP          
+SET X, POP          
+SET PC, POP         

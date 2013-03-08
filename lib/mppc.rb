@@ -11,9 +11,11 @@ class MPPC < TerminalRunner
   option "--help", 0, "", "Shows this help file."
   option "--output", 1, "<file>", "Sets the output file."
   option "--verbose", 0, "", "Show inline comments in the generated assembly."
+  option "--binary", 0, "", "Run the compiled file through the assembler once finished."
 
   option_alias "--output", "-o"
   option_alias "--verbose", "-v"
+  option_alias "--binary", "-b"
 
   help <<EOS
     Please make sure to read the README for information about this compiler.
@@ -37,6 +39,11 @@ EOS
     end
 
     MPPCompiler.run(@@params["input"], output, !@@options["--verbose"].nil?)
+
+    if @@options.include? "--binary"
+      `cp #{output} #{output}.tmp`
+      system("ruby", "mppc-assembler/mppasm", "#{output}.tmp", output)
+    end
   end
 end
 
