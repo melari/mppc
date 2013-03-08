@@ -96,8 +96,8 @@ rule
         ;
 
     int_list
-        : DECIMAL { result = [val[0]] }
-        | DECIMAL int_list { result = val[1].unshift(val[0]) }
+        : constant { result = [val[0].eval.value] }
+        | constant int_list { result = val[1].unshift(val[0].eval.value) }
         | /* none */ { result = [] }
         ;
 
