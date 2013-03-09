@@ -8,7 +8,9 @@ class Type
               :bool => { :signed => false,
                          :default => 0 },
               :none => { :signed => false,
-                         :default => 0 }
+                         :default => 0 },
+              :char => { :signed => false,
+                         :default => 63 }
             }
 
 
@@ -34,6 +36,8 @@ class Type
       return :bool
     when "def"
       return :none
+    when "char"
+      return :char
     else
       raise TypeError, "Unknown type #{type}"
     end

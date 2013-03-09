@@ -7,9 +7,10 @@ def main
   %i testing = [0 10 2 9 5 0xFFFF]
 
   init_screen()
-  print_string(message)
-  print_string(message2)
-  print_int(average(testing))
+  puts(message)
+  puts(message2)
+  puti(average(testing))
+  char test = 'a'
 }
 
 int average(int[] array)
@@ -49,23 +50,23 @@ def init_screen
 }
 
 
-def print_string(int[] string, int length)
+def puts(char[] string, int length)
 {
   int i = 0
-  int char = string[i]
-  while (char && 0x00FF != 0)
+  char c = string[i]
+  while (c && 0x00FF != 0)
   {
-    if (char && 0x00FF == 0x25)
+    if (c && 0x00FF == 0x25)
       new_line()
-    @cursor = char && 0x00FF || 0x1000
+    @cursor = c && 0x00FF || 0x1000
     cursor++
 
     i++
-    char = string[i]
+    c = string[i]
   }
 }
 
-def print_int(int val)
+def puti(int val)
 {
   @cursor = (val + 0x30) || 0xF000
   cursor++

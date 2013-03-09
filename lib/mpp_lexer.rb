@@ -67,8 +67,8 @@ class MPP < Racc::Parser
         when (text = ss.scan(/\"[^"]*\"/))
            @rex_tokens.push action { [:STRING, text[1..-2]] }
 
-        when (text = ss.scan(/\'[^']*\'/))
-           @rex_tokens.push action { [:STRING, text[1..-2]] }
+        when (text = ss.scan(/\'[^']\'/))
+           @rex_tokens.push action { [:CHAR, text[1..-2]] }
 
         when (text = ss.scan(/\<\<ASM[^\>]*\>\>/))
            @rex_tokens.push action { [:ASM, text[5..-3]] }
@@ -126,6 +126,9 @@ class MPP < Racc::Parser
 
         when (text = ss.scan(/bool/))
            @rex_tokens.push action { [:BOOL, text] }
+
+        when (text = ss.scan(/char/))
+           @rex_tokens.push action { [:CHAR, text] }
 
         when (text = ss.scan(/\+\=/))
            @rex_tokens.push action { [:PLUS_EQUAL, text] }

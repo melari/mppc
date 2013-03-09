@@ -18,9 +18,10 @@ rule
                 {ML_COM_IN}(.|\n)*(?={ML_COM_OUT}){ML_COM_OUT} // Multiline comments
                 {SL_COM}.*(?=\n)                               // Singleline comments
 
-# String Literals
+# String Literal
                 \"[^"]*\"                   { [:STRING, text[1..-2]] }
-                \'[^']*\'                   { [:STRING, text[1..-2]] }
+# Char Literal
+                \'[^']\'                    { [:CHAR_LIT, text[1..-2]] }
 
 # ASM 'String Literals'
                 \<\<ASM[^\>]*\>\>           { [:ASM, text[5..-3]] }
@@ -50,6 +51,7 @@ rule
                 int                         { [:INT, text] }
                 uint                        { [:UINT, text] }
                 bool                        { [:BOOL, text] }
+                char                        { [:CHAR, text] }
 
 # Operators
                 \+\=                        { [:PLUS_EQUAL, text] }

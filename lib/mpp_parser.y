@@ -214,6 +214,7 @@ rule
         | HEX     { result = LiteralEval.new(:int, val[0].hex) }
         | TRUE    { result = LiteralEval.new(:bool, true) }
         | FALSE   { result = LiteralEval.new(:bool, false) }
+        | CHAR_LIT{ result = LiteralEval.new(:char, val[0][0].ord) }
         ;
 
     ident
@@ -225,6 +226,7 @@ rule
         | UINT
         | BOOL
         | DEF
+        | CHAR
         ;
 
 end
